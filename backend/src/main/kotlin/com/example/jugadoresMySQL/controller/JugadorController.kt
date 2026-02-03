@@ -1,44 +1,85 @@
-package com.example.controller.jugadoresMySQL
+package com.example.jugadoresMySQL.controller
 
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
+import com.example.jugadoresMySQL.model.Jugador
+import com.example.jugadoresMySQL.service.JugadorService
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
-@RestController
-@RequestMapping("/api/jugadores")
+@Controller
+@RequestMapping("/jugadores")
 class JugadorController(
     private val jugadorService: JugadorService
 ) {
 
     @GetMapping
-    fun getAll(): List<Jugador> = jugadorService.findAll()
+    fun listar(model: Model): String {
+        model.addAttribute("jugadores", jugadorService.findAll())
+        return "jugadores"
+    }
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable id: Int): ResponseEntity<Jugador> =
+    fun detalle(@PathVariable id: Int, model: Model): String =
         try {
-            ResponseEntity.ok(jugadorService.findById(id))
+            val jugador = jugadorService.findById(id)
+            model.addAttribute("jugador", jugador)
+            "detalleJugador"
         } catch (e: NoSuchElementException) {
-            ResponseEntity.notFound().build()
+            "errorJugador"
         }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody jugador: Jugador): Jugador = jugadorService.create(jugador)
+    @GetMapping("/nuevo")
+    fun nuevo(model: Model): String {
+        model.addAttribute("jugador", Jugador())
+        model.addAttribute("titulo", "Nuevo jugador")
+        return "formularioJugador"
+    }
 
-    @PutMapping("/{id}")
-    fun update(@PathVariable id: Int, @RequestBody jugador: Jugador): ResponseEntity<Jugador> =
+    @GetMapping("/editar/{id}")
+    fun editar(@PathVariable id: Int, model: Model): String =
         try {
-            ResponseEntity.ok(jugadorService.update(id, jugador))
+            val jugador = jugadorService.findById(id)
+            model.addAttribute("jugador", jugador)
+            model.addAttribute("titulo", "Editar jugador")
+            "formularioJugador"
         } catch (e: NoSuchElementException) {
-            ResponseEntity.notFound().build()
+            "errorJugador"
         }
 
-    @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Int): ResponseEntity<Void> =
-        try {
-            jugadorService.delete(id)
-            ResponseEntity.noContent().build()
-        } catch (e: NoSuchElementException) {
-            ResponseEntity.notFound().build()
+    @PostMapping("/guardar")
+    fun guardar(@ModelAttribute jugador: Jugador): String {
+        jugadorService.save(jugador)
+        return "redirect:/jugadores"
+    }
+
+    @GetMapping("/borrar/{id}")
+    fun borrar(@PathVariable id: Int): String {
+        jugadorService.delete(id)
+        return "redirect:/jugadores"
+    }
+
+    @GetMapping("/importar")
+    fun mostrarImportar(): String = "jugadoresImportar"
+
+    @PostMapping("/importar")
+    fun importar(
+        @RequestParam("file") file: MultipartFile,
+        redirectAttributes: RedirectAttributes
+    ): String {
+        if (file.isEmpty) {
+            redirectAttributes.addFlashAttribute("mensajeError", "Selecciona un archivo CSV")
+            return "redirect:/jugadores/importar"
         }
+
+        return try {
+            val count = jugadorService.importarDesdeCsv(file)
+            redirectAttributes.addFlashAttribute("mensajeExito", "$count jugadores importados correctamente")
+            "redirect:/jugadores"
+        } catch (ex: Exception) {
+            redirectAttributes.addFlashAttribute("mensajeError", "Error al importar el CSV: ${ex.message}")
+            "redirect:/jugadores/importar"
+        }
+    }
 }
