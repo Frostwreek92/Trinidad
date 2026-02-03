@@ -1,4 +1,4 @@
-package com.example.jugadoresMySQL
+package com.example.jugadoresMySQL.model
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

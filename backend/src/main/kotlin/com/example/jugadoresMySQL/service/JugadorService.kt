@@ -1,6 +1,11 @@
-package com.example.jugadoresMySQL
+package com.example.jugadoresMySQL.service
 
+import com.example.jugadoresMySQL.model.Jugador
+import com.example.jugadoresMySQL.repository.JugadorRepository
 import org.springframework.stereotype.Service
+import org.springframework.web.multipart.MultipartFile
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 @Service
 class JugadorService(
@@ -12,7 +17,12 @@ class JugadorService(
     fun findById(id: Int): Jugador =
         jugadorRepository.findById(id).orElseThrow { NoSuchElementException("Jugador con id $id no encontrado") }
 
-    fun create(jugador: Jugador): Jugador = jugadorRepository.save(jugador)
+    fun save(jugador: Jugador): Jugador =
+        if (jugador.idJugador == null) {
+            jugadorRepository.save(jugador)
+        } else {
+            update(jugador.idJugador!!, jugador)
+        }
 
     fun update(id: Int, updated: Jugador): Jugador {
         val existing = findById(id)
@@ -31,5 +41,33 @@ class JugadorService(
             throw NoSuchElementException("Jugador con id $id no encontrado")
         }
         jugadorRepository.deleteById(id)
+    }
+
+    fun importarDesdeCsv(archivo: MultipartFile): Int {
+        val reader = BufferedReader(InputStreamReader(archivo.inputStream))
+
+        val jugadores = reader.lineSequence()
+            .drop(1) // saltar cabecera si existe
+            .filter { it.isNotBlank() }
+            .map { linea ->
+                val partes = linea.split(';', ',', '\t')
+                    .map { it.trim() }
+
+                if (partes.size < 5) {
+                    throw IllegalArgumentException("Línea CSV no válida: '$linea'")
+                }
+
+                Jugador(
+                    nombreJugador = partes[0],
+                    nombreEquipo = partes[1],
+                    posicion = partes[2],
+                    edad = partes[3].toInt(),
+                    dorsal = partes[4].toInt()
+                )
+            }
+            .toList()
+
+        jugadorRepository.saveAll(jugadores)
+        return jugadores.size
     }
 }
