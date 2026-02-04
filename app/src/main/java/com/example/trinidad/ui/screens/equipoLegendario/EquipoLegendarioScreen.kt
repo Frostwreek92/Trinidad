@@ -1,4 +1,4 @@
-package com.example.trinidad.ui.screens
+package com.example.trinidad.ui.screens.equipoLegendario
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
