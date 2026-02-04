@@ -4,18 +4,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.trinidad.ui.components.AppTopBar
-import com.example.trinidad.ui.screens.EquipoLegendarioScreen
-import com.example.trinidad.ui.screens.HomeScreen
+import com.example.trinidad.ui.screens.equipoLegendario.EquipoLegendarioScreen
+import com.example.trinidad.ui.screens.home.HomeScreen
 import com.example.trinidad.ui.screens.LigasScreen
-
-sealed class Routes(val route: String) {
-    object Home : Routes("home")
-    object Ligas : Routes("ligas")
-    object EquipoLegendario : Routes("equipo_legendario")
-}
+import com.example.trinidad.ui.screens.ligas.EquipoDetailScreen
+import com.example.trinidad.ui.screens.ligas.JugadorDetailScreen
+import com.example.trinidad.ui.screens.ligas.LigasEquiposJugadoresScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
@@ -49,8 +48,49 @@ fun AppNavGraph(navController: NavHostController) {
             }
 
             composable(Routes.Ligas.route) {
-                LigasScreen()
+                LigasEquiposJugadoresScreen(
+                    onEquipoClick = { equipoId ->
+                        navController.navigate(
+                            Routes.EquipoDetail.createRoute(equipoId)
+                        )
+                    }
+                )
             }
+
+            composable(
+                route = Routes.EquipoDetail.route,
+                arguments = listOf(navArgument("equipoId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val equipoId = backStackEntry.arguments?.getInt("equipoId") ?: return@composable
+
+                EquipoDetailScreen(
+                    equipoId = equipoId,
+                    onJugadorClick = { jugadorId ->
+                        navController.navigate(
+                            Routes.JugadorDetail.createRoute(jugadorId)
+                        )
+                    }
+                )
+            }
+
+            composable(
+                route = Routes.JugadorDetail.route,
+                arguments = listOf(navArgument("jugadorId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val jugadorId = backStackEntry.arguments?.getInt("jugadorId") ?: return@composable
+                JugadorDetailScreen(jugadorId = jugadorId)
+            }
+
+            composable(
+                route = "jugador/{jugadorId}",
+                arguments = listOf(navArgument("jugadorId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val jugadorId =
+                    backStackEntry.arguments?.getInt("jugadorId") ?: return@composable
+
+                JugadorDetailScreen(jugadorId)
+            }
+
 
             composable(Routes.EquipoLegendario.route) {
                 EquipoLegendarioScreen()

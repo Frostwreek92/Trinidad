@@ -48,6 +48,22 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.navigation.compose)
 
+    // Retrofit (cliente de red)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+// Conversor JSON (gson)
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+// OkHttp para headers y logging
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+// Coroutines para llamadas asíncronas
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+// Coil para cargar imágenes
+    implementation("io.coil-kt:coil-compose:2.4.0")
+// Material Icons Extended (NECESARIO para ExpandMore)
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation(libs.androidx.ui)
+
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.junit)
