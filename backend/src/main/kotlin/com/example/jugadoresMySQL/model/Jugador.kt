@@ -9,7 +9,7 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(name = "jugadores")
-class Jugador(
+data class Jugador(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_jugador")
@@ -29,4 +29,7 @@ class Jugador(
 
     @Column(name = "dorsal")
     var dorsal: Int = 0
-)
+) {
+    // Constructor sin argumentos para JPA
+    constructor() : this(null, "", "", "", 0, 0)
+}
