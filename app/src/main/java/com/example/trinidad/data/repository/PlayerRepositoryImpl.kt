@@ -1,7 +1,7 @@
 package com.example.trinidad.data.repository
 
-import com.example.trinidad.data.mapper.toDomain
 import com.example.trinidad.data.mapper.toDetailDomain
+import com.example.trinidad.data.mapper.toDomain
 import com.example.trinidad.data.remote.api.FootballApi
 import com.example.trinidad.domain.model.Player
 import com.example.trinidad.domain.model.PlayerDetail
