@@ -1,6 +1,17 @@
-nombre,equipo,posicion,edad,dorsal
-Lionel Messi,PSG,Delantero,35,30
-Cristiano Ronaldo,Al Nassr,Delantero,37,7
-Kylian Mbappé,PSG,Delantero,24,7
-Erling Haaland,Manchester City,Delantero,23,9
-Kevin De Bruyne,Manchester City,Centrocampista,32,17
+nombre,id_equipo,posicion,edad,dorsal
+Lionel Messi,7,Delantero,35,30
+Cristiano Ronaldo,12,Delantero,37,7
+Kylian Mbappé,7,Delantero,24,7
+Erling Haaland,3,Delantero,23,9
+Kevin De Bruyne,3,Centrocampista,32,17
+Vinicius Jr,2,Delantero,22,20
+Jude Bellingham,2,Centrocampista,20,5
+Robert Lewandowski,1,Delantero,35,9
+Luka Modric,1,Centrocampista,38,10
+Virgil van Dijk,4,Defensa,31,4
+Alphonso Davies,3,Defensa,23,19
+Marquinhos,7,Defensa,29,5
+Thibaut Courtois,2,Portero,31,1
+Ederson,3,Portero,29,31
+Gianluigi Donnarumma,7,Portero,24,99
+Manuel Neuer,1,Portero,37,1
