@@ -12,6 +12,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.trinidad.ui.components.ExpandableSection
 import com.example.trinidad.ui.components.JugadorItem
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import com.example.trinidad.R
 
 @Composable
 fun EquipoDetailScreen(
@@ -61,6 +69,22 @@ fun EquipoDetailScreen(
                     .padding(16.dp)
                     .verticalScroll(rememberScrollState())
             ) {
+
+                // 🛡 ESCUDO DEL EQUIPO
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(team.logo)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = "Escudo del ${team.name}",
+                    placeholder = painterResource(R.drawable.ic_player_placeholder),
+                    error = painterResource(R.drawable.ic_player_placeholder),
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .size(160.dp)
+                        .padding(bottom = 16.dp)
+                        .fillMaxSize()
+                )
 
                 // Nombre del equipo
                 Text(
