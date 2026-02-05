@@ -4,286 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Jugadores</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            border-radius: 8px;
+        }
+        .table {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+    </style>
 </head>
 <body class="bg-light">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}">
-            <i class="bi bi-trophy-fill me-2"></i>Gestor de Jugadores
-        </a>
-        <div class="navbar-nav ms-auto">
-            <a class="nav-link" th:href="@{/}">Inicio</a>
-            <a class="nav-link" th:href="@{/jugadores}">Jugadores</a>
-            <a class="nav-link" th:href="@{/jugadores/nuevo}">Nuevo Jugador</a>
-            <a class="nav-link" th:href="@{/jugadores/importar}">Importar</a>
-        </div>
+        <a class="navbar-brand" th:href="@{/}">Gestor de Equipos</a>
     </div>
 </nav>
 
 <div class="container py-5">
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <h1 class="h2">
-                <i class="bi bi-people-fill me-2"></i>Lista de Jugadores
-            </h1>
-        </div>
-        <div class="col-md-6 text-md-end">
-            <a th:href="@{/jugadores/nuevo}" class="btn btn-primary">
-                <i class="bi bi-person-plus-fill me-2"></i>Nuevo Jugador
-            </a>
-            <a th:href="@{/jugadores/importar}" class="btn btn-outline-primary ms-2">
-                <i class="bi bi-upload me-2"></i>Importar CSV
-            </a>
-        </div>
+    <div class="d-flex justify-content-between mb-3">
+        <h1>Jugadores</h1>
+        <a th:href="@{/jugadores/nuevo}" class="btn btn-primary">Nuevo Jugador</a>
     </div>
 
-    <!-- Search and Filter Section -->
-    <div class="card shadow-sm mb-4">
-        <div class="card-body">
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <label for="searchInput" class="form-label">Buscar jugador</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="bi bi-search"></i>
-                        </span>
-                        <input type="text" class="form-control" id="searchInput" 
-                               placeholder="Nombre, equipo o posición...">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <label for="filterEquipo" class="form-label">Filtrar por equipo</label>
-                    <select class="form-select" id="filterEquipo">
-                        <option value="">Todos los equipos</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label for="filterPosicion" class="form-label">Filtrar por posición</label>
-                    <select class="form-select" id="filterPosicion">
-                        <option value="">Todas las posiciones</option>
-                        <option value="Portero">Portero</option>
-                        <option value="Defensa">Defensa</option>
-                        <option value="Centrocampista">Centrocampista</option>
-                        <option value="Delantero">Delantero</option>
-                        <option value="Lateral">Lateral</option>
-                        <option value="Mediocentro">Mediocentro</option>
-                        <option value="Extremo">Extremo</option>
-                    </select>
-                </div>
-                <div class="col-md-2 d-flex align-items-end">
-                    <button type="button" class="btn btn-outline-secondary w-100" onclick="clearFilters()">
-                        <i class="bi bi-x-circle me-2"></i>Limpiar
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <table class="table table-striped shadow-sm">
+        <thead class="table-primary">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Posición</th>
+            <th>Edad</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="jugador : ${jugadores}">
+            <td th:text="${jugador.idJugador}"></td>
+            <td th:text="${jugador.nombreJugador}"></td>
+            <td th:text="${jugador.posicion}"></td>
+            <td th:text="${jugador.edad}"></td>
+            <td class="text-center">
+                <a th:href="@{/jugadores/{id}(id=${jugador.idJugador})}"
+                   class="btn btn-primary btn-sm">Detalles</a>
+                <a th:href="@{/jugadores/editar/{id}(id=${jugador.idJugador})}"
+                   class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/jugadores/borrar/{id}(id=${jugador.idJugador})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('¿Borrar jugador?')">Borrar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-    <!-- Statistics Cards -->
-    <div class="row mb-4" th:if="${not #lists.isEmpty(jugadores)}">
-        <div class="col-md-3">
-            <div class="card bg-primary text-white">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h4 class="card-title" th:text="${#lists.size(jugadores)}">0</h4>
-                            <p class="card-text">Total Jugadores</p>
-                        </div>
-                        <div class="align-self-center">
-                            <i class="bi bi-people-fill display-4"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-success text-white">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h4 class="card-title" th:text="${#lists.size(jugadores.?[edad >= 18 and edad <= 25])}">0</h4>
-                            <p class="card-text">Jóvenes (18-25)</p>
-                        </div>
-                        <div class="align-self-center">
-                            <i class="bi bi-star-fill display-4"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-warning text-dark">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h4 class="card-title" th:text="${#lists.size(jugadores.?[edad >= 26 and edad <= 30])}">0</h4>
-                            <p class="card-text">Veteranos (26-30)</p>
-                        </div>
-                        <div class="align-self-center">
-                            <i class="bi bi-award-fill display-4"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-info text-white">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h4 class="card-title" th:text="${#lists.size(jugadores.?[edad > 30])}">0</h4>
-                            <p class="card-text">Expertos (>30)</p>
-                        </div>
-                        <div class="align-self-center">
-                            <i class="bi bi-trophy-fill display-4"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Players Table -->
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle" id="jugadoresTable">
-                    <thead class="table-primary">
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Equipo</th>
-                        <th>Posición</th>
-                        <th>Edad</th>
-                        <th>Dorsal</th>
-                        <th class="text-center">Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="jugador : ${jugadores}" class="jugador-row">
-                        <td th:text="${jugador.idJugador}"></td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" 
-                                     style="width: 32px; height: 32px; font-size: 12px;">
-                                    <span th:text="${#strings.substring(jugador.nombreJugador, 0, 1)}"></span>
-                                </div>
-                                <span th:text="${jugador.nombreJugador}"></span>
-                            </div>
-                        </td>
-                        <td th:text="${jugador.nombreEquipo ?: 'Sin equipo'}"></td>
-                        <td>
-                            <span class="badge bg-secondary" th:text="${jugador.posicion ?: 'N/A'}"></span>
-                        </td>
-                        <td th:text="${jugador.edad ?: '-'}"></td>
-                        <td th:text="${jugador.dorsal ?: '-'}"></td>
-                        <td class="text-center">
-                            <div class="btn-group" role="group">
-                                <a th:href="@{/jugadores/{id}(id=${jugador.idJugador})}"
-                                   class="btn btn-primary btn-sm" title="Ver detalles">
-                                    <i class="bi bi-eye-fill"></i>
-                                </a>
-                                <a th:href="@{/jugadores/editar/{id}(id=${jugador.idJugador})}"
-                                   class="btn btn-warning btn-sm" title="Editar">
-                                    <i class="bi bi-pencil-fill"></i>
-                                </a>
-                                <a th:href="@{/jugadores/borrar/{id}(id=${jugador.idJugador})}"
-                                   class="btn btn-danger btn-sm"
-                                   onclick="return confirm('¿Estás seguro de que quieres borrar este jugador?')"
-                                   title="Borrar">
-                                    <i class="bi bi-trash-fill"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="text-center py-4" th:if="${#lists.isEmpty(jugadores)}">
-                <i class="bi bi-inbox display-1 text-muted"></i>
-                <h4 class="text-muted mt-3">No hay jugadores registrados</h4>
-                <p class="text-muted">Comienza agregando un nuevo jugador o importando desde un archivo CSV.</p>
-                <div class="mt-3">
-                    <a th:href="@{/jugadores/nuevo}" class="btn btn-primary me-2">
-                        <i class="bi bi-person-plus-fill me-2"></i>Agregar Jugador
-                    </a>
-                    <a th:href="@{/jugadores/importar}" class="btn btn-outline-primary">
-                        <i class="bi bi-upload me-2"></i>Importar CSV
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <p class="text-muted" th:if="${jugadores.size() == 0}">
+        No hay jugadores registrados.
+    </p>
 </div>
 
-<footer class="bg-dark text-light py-3 mt-5">
-    <div class="container text-center">
-        <p class="mb-0">Gestor de Jugadores - Spring Boot Application</p>
-    </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-<script>
-    // Populate team filter
-    document.addEventListener('DOMContentLoaded', function() {
-        const equipos = new Set();
-        const rows = document.querySelectorAll('.jugador-row');
-        
-        rows.forEach(row => {
-            const equipoCell = row.cells[2];
-            if (equipoCell && equipoCell.textContent && equipoCell.textContent.trim() !== 'Sin equipo') {
-                equipos.add(equipoCell.textContent.trim());
-            }
-        });
-        
-        const filterEquipo = document.getElementById('filterEquipo');
-        equipos.forEach(equipo => {
-            const option = document.createElement('option');
-            option.value = equipo;
-            option.textContent = equipo;
-            filterEquipo.appendChild(option);
-        });
-    });
-
-    // Search functionality
-    function filterTable() {
-        const searchInput = document.getElementById('searchInput').value.toLowerCase();
-        const filterEquipo = document.getElementById('filterEquipo').value;
-        const filterPosicion = document.getElementById('filterPosicion').value;
-        const rows = document.querySelectorAll('.jugador-row');
-        
-        rows.forEach(row => {
-            const nombre = row.cells[1].textContent.toLowerCase();
-            const equipo = row.cells[2].textContent.toLowerCase();
-            const posicion = row.cells[3].textContent.toLowerCase();
-            
-            const matchesSearch = nombre.includes(searchInput) || equipo.includes(searchInput) || posicion.includes(searchInput);
-            const matchesEquipo = !filterEquipo || equipo === filterEquipo.toLowerCase();
-            const matchesPosicion = !filterPosicion || posicion === filterPosicion.toLowerCase();
-            
-            row.style.display = matchesSearch && matchesEquipo && matchesPosicion ? '' : 'none';
-        });
-    }
-
-    // Clear filters
-    function clearFilters() {
-        document.getElementById('searchInput').value = '';
-        document.getElementById('filterEquipo').value = '';
-        document.getElementById('filterPosicion').value = '';
-        filterTable();
-    }
-
-    // Add event listeners
-    document.getElementById('searchInput').addEventListener('input', filterTable);
-    document.getElementById('filterEquipo').addEventListener('change', filterTable);
-    document.getElementById('filterPosicion').addEventListener('change', filterTable);
-</script>
 </body>
 </html>

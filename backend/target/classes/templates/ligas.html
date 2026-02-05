@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jugadores</title>
+    <title>Ligas</title>
     <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
     <style>
         h1 {
@@ -28,14 +28,14 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}">Gestor de Equipos</a>
+        <a class="navbar-brand" th:href="@{/}">Gestor de Ligas</a>
     </div>
 </nav>
 
 <div class="container py-5">
     <div class="d-flex justify-content-between mb-3">
-        <h1>Jugadores</h1>
-        <a th:href="@{/jugadores/nuevo}" class="btn btn-primary">Nuevo Jugador</a>
+        <h1>Ligas</h1>
+        <a th:href="@{/ligas/nuevo}" class="btn btn-primary">Nueva Liga</a>
     </div>
 
     <table class="table table-striped shadow-sm">
@@ -43,32 +43,30 @@
         <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Posición</th>
-            <th>Edad</th>
+            <th>País</th>
             <th class="text-center">Acciones</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="jugador : ${jugadores}">
-            <td th:text="${jugador.idJugador}"></td>
-            <td th:text="${jugador.nombreJugador}"></td>
-            <td th:text="${jugador.posicion}"></td>
-            <td th:text="${jugador.edad}"></td>
+        <tr th:each="liga : ${ligas}">
+            <td th:text="${liga.idLiga}"></td>
+            <td th:text="${liga.nombreLiga}"></td>
+            <td th:text="${liga.paisLiga}"></td>
             <td class="text-center">
-                <a th:href="@{/jugadores/{id}(id=${jugador.idJugador})}"
+                <a th:href="@{/ligas/{id}(id=${liga.idLiga})}"
                    class="btn btn-primary btn-sm">Detalles</a>
-                <a th:href="@{/jugadores/editar/{id}(id=${jugador.idJugador})}"
+                <a th:href="@{/ligas/editar/{id}(id=${liga.idLiga})}"
                    class="btn btn-warning btn-sm">Editar</a>
-                <a th:href="@{/jugadores/borrar/{id}(id=${jugador.idJugador})}"
+                <a th:href="@{/ligas/borrar/{id}(id=${liga.idLiga})}"
                    class="btn btn-danger btn-sm"
-                   onclick="return confirm('¿Borrar jugador?')">Borrar</a>
+                   onclick="return confirm('¿Borrar liga?')">Borrar</a>
             </td>
         </tr>
         </tbody>
     </table>
 
-    <p class="text-muted" th:if="${jugadores.size() == 0}">
-        No hay jugadores registrados.
+    <p class="text-muted" th:if="${ligas.size() == 0}">
+        No hay ligas registradas.
     </p>
 </div>
 

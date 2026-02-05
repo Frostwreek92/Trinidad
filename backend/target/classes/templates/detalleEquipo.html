@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Detalle Jugador</title>
+    <title>Detalle Equipo</title>
     <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
     <style>
         h1 {
@@ -21,18 +21,17 @@
 
 <nav class="navbar navbar-dark bg-primary mb-4">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/jugadores}">Jugadores</a>
+        <a class="navbar-brand" th:href="@{/equipos}">Equipos</a>
     </div>
 </nav>
 
 <div class="container">
     <div class="card shadow-sm text-center">
         <div class="card-body">
-            <h1 th:text="${jugador.nombreJugador}"></h1>
-            <p><strong>Posición:</strong> <span th:text="${jugador.posicion}"></span></p>
-            <p><strong>Edad:</strong> <span th:text="${jugador.edad}"></span></p>
+            <h1 th:text="${equipo.nombreEquipo}"></h1>
+            <p><strong>País:</strong> <span th:text="${equipo.paisEquipo}"></span></p>
 
-            <a th:href="@{/jugadores}" class="btn btn-secondary mt-3">
+            <a th:href="@{/equipos}" class="btn btn-secondary mt-3">
                 Volver
             </a>
         </div>

@@ -2,210 +2,73 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Importar jugadores desde CSV</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            border-radius: 8px;
+        }
+        .card {
+            border-radius: 8px;
+        }
+        .pre {
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+<nav class="navbar navbar-dark bg-primary mb-4">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}">
-            <i class="bi bi-trophy-fill me-2"></i>Gestor de Jugadores
-        </a>
-        <div class="navbar-nav ms-auto">
-            <a class="nav-link" th:href="@{/}">Inicio</a>
-            <a class="nav-link" th:href="@{/jugadores}">Jugadores</a>
-            <a class="nav-link" th:href="@{/jugadores/nuevo}">Nuevo Jugador</a>
-            <a class="nav-link" th:href="@{/jugadores/importar}">Importar</a>
-        </div>
+        <a class="navbar-brand" th:href="@{/jugadores}">Jugadores</a>
     </div>
 </nav>
 
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h1 class="h4 mb-0">
-                        <i class="bi bi-upload me-2"></i>Importar jugadores desde CSV
-                    </h1>
+<div class="container mt-4">
+    <h1>Importar jugadores desde CSV</h1>
+
+    <div th:if="${mensajeExito}" class="alert alert-success">
+        <span th:text="${mensajeExito}"></span>
+    </div>
+    
+    <div th:if="${mensajeError}" class="alert alert-danger">
+        <span th:text="${mensajeError}"></span>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form th:action="@{/jugadores/importar}" method="post">
+                <div class="mb-3">
+                    <p class="text-muted">Se importará el archivo <strong>jugadores_ejemplo.csv</strong> de la carpeta data</p>
                 </div>
-                <div class="card-body">
-                    <!-- Alert Messages -->
-                    <div th:if="${mensajeExito}" class="alert alert-success alert-dismissible fade show" role="alert">
-                        <i class="bi bi-check-circle-fill me-2"></i>
-                        <span th:text="${mensajeExito}"></span>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                    <div th:if="${mensajeError}" class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                        <span th:text="${mensajeError}"></span>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
+                
+                <button type="submit" class="btn btn-primary">Importar</button>
+                <a th:href="@{/}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
 
-                    <!-- Import Form -->
-                    <form th:action="@{/jugadores/importar}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="mb-4">
-                                    <label for="file" class="form-label">
-                                        <i class="bi bi-file-earmark-csv me-1"></i>Archivo CSV
-                                    </label>
-                                    <input class="form-control" type="file" id="file" name="file" accept=".csv" required>
-                                    <div class="invalid-feedback">
-                                        Por favor, selecciona un archivo CSV válido.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-4">
-                                    <label class="form-label">Vista previa</label>
-                                    <div class="border rounded p-3 bg-light">
-                                        <small class="text-muted">
-                                            <i class="bi bi-info-circle me-1"></i>
-                                            Selecciona un archivo para ver vista previa
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Format Instructions -->
-                        <div class="card border-secondary mb-4">
-                            <div class="card-header bg-light">
-                                <h5 class="h6 mb-0">
-                                    <i class="bi bi-question-circle me-2"></i>Formato del archivo CSV
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <p class="mb-3">Tu archivo CSV debe tener el siguiente formato:</p>
-                                <div class="bg-dark text-light p-3 rounded font-monospace small">
-                                    nombreJugador;nombreEquipo;posicion;edad;dorsal
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-6">
-                                        <h6 class="text-muted">Ejemplo:</h6>
-                                        <div class="bg-light p-2 rounded small">
-                                            <div>Lionel Messi;Inter Miami;Delantero;36;10</div>
-                                            <div>Cristiano Ronaldo;Al Nassr;Delantero;38;7</div>
-                                            <div>Kylian Mbappé;PSG;Delantero;24;7</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h6 class="text-muted">Notas importantes:</h6>
-                                        <ul class="small text-muted">
-                                            <li>Usa punto y coma (;) como separador</li>
-                                            <li>La edad debe ser un número entre 16-50</li>
-                                            <li>El dorsal debe ser un número entre 1-99</li>
-                                            <li>Los campos vacíos serán ignorados</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Download Sample CSV -->
-                        <div class="text-center mb-4">
-                            <p class="text-muted mb-2">¿Necesitas un archivo de ejemplo?</p>
-                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="downloadSampleCSV()">
-                                <i class="bi bi-download me-2"></i>Descargar CSV de ejemplo
-                            </button>
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="d-flex gap-2 justify-content-center">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-upload me-2"></i>Importar Jugadores
-                            </button>
-                            <a th:href="@{/jugadores}" class="btn btn-secondary">
-                                <i class="bi bi-arrow-left me-2"></i>Volver al listado
-                            </a>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5>Instrucciones</h5>
+            <ul>
+                <li>El archivo debe estar en formato CSV</li>
+                <li>Las columnas deben estar en este orden: nombre, equipo, posicion, edad, dorsal</li>
+                <li>Separar los valores con comas (,)</li>
+                <li>La primera fila debe contener los nombres de las columnas</li>
+            </ul>
+            
+            <h6>Ejemplo:</h6>
+            <pre class="bg-light p-2">nombre,equipo,posicion,edad,dorsal
+Lionel Messi,PSG,Delantero,35,30
+Cristiano Ronaldo,Al Nassr,Delantero,37,7</pre>
         </div>
     </div>
 </div>
 
-<footer class="bg-dark text-light py-3 mt-5">
-    <div class="container text-center">
-        <p class="mb-0">Gestor de Jugadores - Spring Boot Application</p>
-    </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-<script>
-    // Form validation
-    (function() {
-        'use strict';
-        const forms = document.querySelectorAll('.needs-validation');
-        Array.from(forms).forEach(form => {
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    })();
-
-    // Download sample CSV
-    function downloadSampleCSV() {
-        const csvContent = `nombreJugador;nombreEquipo;posicion;edad;dorsal
-Lionel Messi;Inter Miami;Delantero;36;10
-Cristiano Ronaldo;Al Nassr;Delantero;38;7
-Kylian Mbappé;PSG;Delantero;24;7
-Erling Haaland;Manchester City;Delantero;23;9
-Kevin De Bruyne;Manchester City;Centrocampista;32;17`;
-        
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        const url = URL.createObjectURL(blob);
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'jugadores_ejemplo.csv');
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-
-    // File preview (basic implementation)
-    document.getElementById('file').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        const previewDiv = document.querySelector('.border.rounded.p-3.bg-light');
-        
-        if (file && file.type === 'text/csv') {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const content = e.target.result;
-                const lines = content.split('\n').slice(0, 3); // Show first 3 lines
-                previewDiv.innerHTML = `
-                    <small class="text-muted">
-                        <i class="bi bi-file-text me-1"></i>
-                        Vista previa (${lines.length} líneas):
-                    </small>
-                    <div class="mt-2">
-                        <pre class="small mb-0">${lines.join('\n')}</pre>
-                    </div>
-                `;
-            };
-            reader.readAsText(file);
-        } else {
-            previewDiv.innerHTML = `
-                <small class="text-muted">
-                    <i class="bi bi-info-circle me-1"></i>
-                    Selecciona un archivo para ver vista previa
-                </small>
-            `;
-        }
-    });
-</script>
 </body>
 </html>

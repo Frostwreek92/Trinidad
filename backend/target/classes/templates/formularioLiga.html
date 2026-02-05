@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${titulo}">Formulario Jugador</title>
+    <title th:text="${titulo}">Formulario Liga</title>
     <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
     <style>
         h1 {
@@ -24,7 +24,7 @@
 
 <nav class="navbar navbar-dark bg-primary mb-4">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/jugadores}">Jugadores</a>
+        <a class="navbar-brand" th:href="@{/ligas}">Ligas</a>
     </div>
 </nav>
 
@@ -33,26 +33,21 @@
         <div class="card-body">
             <h1 th:text="${titulo}"></h1>
 
-            <form th:action="@{/jugadores/guardar}" th:object="${jugador}" method="post">
-                <input type="hidden" th:field="*{idJugador}"/>
+            <form th:action="@{/ligas/guardar}" th:object="${liga}" method="post">
+                <input type="hidden" th:field="*{idLiga}"/>
 
                 <div class="mb-3">
                     <label class="form-label">Nombre</label>
-                    <input class="form-control" th:field="*{nombreJugador}" required>
+                    <input class="form-control" th:field="*{nombreLiga}" required>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Posición</label>
-                    <input class="form-control" th:field="*{posicion}">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Edad</label>
-                    <input type="number" class="form-control" th:field="*{edad}">
+                    <label class="form-label">País</label>
+                    <input class="form-control" th:field="*{paisLiga}">
                 </div>
 
                 <button class="btn btn-primary">Guardar</button>
-                <a th:href="@{/jugadores}" class="btn btn-secondary">Cancelar</a>
+                <a th:href="@{/ligas}" class="btn btn-secondary">Cancelar</a>
             </form>
         </div>
     </div>

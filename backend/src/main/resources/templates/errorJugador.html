@@ -2,57 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Error Jugador</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <title>Error</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            border-radius: 8px;
+        }
+        .alert {
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{/}">Gestor de Jugadores</a>
-        <div class="navbar-nav ms-auto">
-            <a class="nav-link" th:href="@{/}">Inicio</a>
-            <a class="nav-link" th:href="@{/jugadores}">Jugadores</a>
-            <a class="nav-link" th:href="@{/jugadores/nuevo}">Nuevo Jugador</a>
-            <a class="nav-link" th:href="@{/jugadores/importar}">Importar</a>
-        </div>
-    </div>
-</nav>
-
 <div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="alert alert-danger text-center shadow-sm">
-                <div class="mb-3">
-                    <i class="bi bi-exclamation-triangle-fill display-1"></i>
-                </div>
-                <h1 class="h3 mb-3">Jugador no encontrado</h1>
-                <p class="mb-3" th:if="${mensaje}" th:text="${mensaje}"></p>
-                <p class="text-muted mb-4">El jugador que buscas no existe o ha sido eliminado.</p>
-                <div class="d-flex justify-content-center gap-2">
-                    <a th:href="@{/jugadores}" class="btn btn-primary">
-                        <i class="bi bi-house-fill me-2"></i>Volver al listado
-                    </a>
-                    <a th:href="@{/jugadores/nuevo}" class="btn btn-outline-primary">
-                        <i class="bi bi-person-plus-fill me-2"></i>Crear nuevo jugador
-                    </a>
-                </div>
-            </div>
-        </div>
+    <div class="alert alert-danger text-center shadow-sm">
+        <h1>Jugador no encontrado</h1>
+        <a th:href="@{/jugadores}" class="btn btn-danger mt-3">Volver</a>
     </div>
 </div>
 
-<footer class="bg-dark text-light py-3 mt-5">
-    <div class="container text-center">
-        <p class="mb-0">Gestor de Jugadores - Spring Boot Application</p>
-    </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
 </body>
 </html>

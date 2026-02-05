@@ -5,6 +5,8 @@ import com.example.jugadoresMySQL.repository.JugadorRepository
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import java.io.BufferedReader
+import java.io.File
+import java.io.FileReader
 import java.io.InputStreamReader
 
 @Service
@@ -51,6 +53,40 @@ class JugadorService(
             .filter { it.isNotBlank() }
             .map { linea ->
                 val partes = linea.split(';', ',', '\t')
+                    .map { it.trim() }
+
+                if (partes.size < 5) {
+                    throw IllegalArgumentException("Línea CSV no válida: '$linea'")
+                }
+
+                Jugador(
+                    nombreJugador = partes[0],
+                    nombreEquipo = partes[1],
+                    posicion = partes[2],
+                    edad = partes[3].toInt(),
+                    dorsal = partes[4].toInt()
+                )
+            }
+            .toList()
+
+        jugadorRepository.saveAll(jugadores)
+        return jugadores.size
+    }
+
+    fun importarDesdeArchivoFijo(): Int {
+        val archivo = File("data/jugadores_ejemplo.csv")
+        
+        if (!archivo.exists()) {
+            throw IllegalArgumentException("El archivo data/jugadores_ejemplo.csv no existe")
+        }
+
+        val reader = BufferedReader(FileReader(archivo))
+
+        val jugadores = reader.lineSequence()
+            .drop(1) // saltar cabecera
+            .filter { it.isNotBlank() }
+            .map { linea ->
+                val partes = linea.split(',')
                     .map { it.trim() }
 
                 if (partes.size < 5) {

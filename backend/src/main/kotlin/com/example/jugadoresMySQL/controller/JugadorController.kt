@@ -64,17 +64,9 @@ class JugadorController(
     fun mostrarImportar(): String = "jugadoresImportar"
 
     @PostMapping("/importar")
-    fun importar(
-        @RequestParam("file") file: MultipartFile,
-        redirectAttributes: RedirectAttributes
-    ): String {
-        if (file.isEmpty) {
-            redirectAttributes.addFlashAttribute("mensajeError", "Selecciona un archivo CSV")
-            return "redirect:/jugadores/importar"
-        }
-
+    fun importar(redirectAttributes: RedirectAttributes): String {
         return try {
-            val count = jugadorService.importarDesdeCsv(file)
+            val count = jugadorService.importarDesdeArchivoFijo()
             redirectAttributes.addFlashAttribute("mensajeExito", "$count jugadores importados correctamente")
             "redirect:/jugadores"
         } catch (ex: Exception) {

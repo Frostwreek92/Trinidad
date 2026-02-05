@@ -3,338 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gestor de Jugadores - Inicio</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <title>Gestor</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        .btn {
+            border-radius: 8px;
+        }
+        .card {
+            border-radius: 8px;
+        }
+    </style>
 </head>
+
 <body class="bg-light">
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}">
-            <i class="bi bi-trophy-fill me-2"></i>Gestor de Jugadores
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/}">
-                        <i class="bi bi-house-fill me-1"></i>Inicio
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/jugadores}">
-                        <i class="bi bi-people-fill me-1"></i>Jugadores
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/jugadores/nuevo}">
-                        <i class="bi bi-person-plus-fill me-1"></i>Nuevo Jugador
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/jugadores/importar}">
-                        <i class="bi bi-upload me-1"></i>Importar
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <a class="navbar-brand" th:href="@{/}">Gestor</a>
     </div>
 </nav>
 
-<!-- Hero Section -->
-<div class="bg-primary text-white py-5 mb-5">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-8">
-                <h1 class="display-4 fw-bold mb-3">
-                    <i class="bi bi-trophy-fill me-3"></i>Gestor de Jugadores
-                </h1>
-                <p class="lead mb-4">
-                    Sistema completo para la gestión de jugadores de fútbol. 
-                    Administra información detallada, importa datos desde CSV y mantén 
-                    un control total sobre tu plantilla.
-                </p>
-                <div class="d-flex gap-3 flex-wrap">
-                    <a th:href="@{/jugadores}" class="btn btn-light btn-lg">
-                        <i class="bi bi-list-ul me-2"></i>Ver Todos los Jugadores
-                    </a>
-                    <a th:href="@{/jugadores/nuevo}" class="btn btn-outline-light btn-lg">
-                        <i class="bi bi-person-plus-fill me-2"></i>Agregar Nuevo
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-4 text-center">
-                <i class="bi bi-people-fill display-1"></i>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
 
-<!-- Statistics Cards -->
-<div class="container mb-5">
-    <h2 class="h3 mb-4">
-        <i class="bi bi-graph-up me-2"></i>Estadísticas Generales
-    </h2>
-    <div class="row g-4">
-        <div class="col-md-3">
-            <div class="card bg-primary text-white h-100 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="h2" th:text="${totalJugadores}">0</h3>
-                            <p class="mb-0">Total Jugadores</p>
-                        </div>
-                        <div class="fs-1 opacity-75">
-                            <i class="bi bi-people-fill"></i>
-                        </div>
-                    </div>
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-primary text-white">
+                    <h1 class="h4 mb-0">Opciones</h1>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-success text-white h-100 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="h2" th:text="${totalEquipos}">0</h3>
-                            <p class="mb-0">Equipos</p>
-                        </div>
-                        <div class="fs-1 opacity-75">
-                            <i class="bi bi-shield-fill"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-warning text-dark h-100 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="h2" th:text="${jugadoresJovenes}">0</h3>
-                            <p class="mb-0">Jóvenes (18-25)</p>
-                        </div>
-                        <div class="fs-1 opacity-75">
-                            <i class="bi bi-star-fill"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-info text-white h-100 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="h2" th:text="${jugadoresExpertos}">0</h3>
-                            <p class="mb-0">Expertos (>30)</p>
-                        </div>
-                        <div class="fs-1 opacity-75">
-                            <i class="bi bi-award-fill"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Quick Actions -->
-<div class="container mb-5">
-    <h2 class="h3 mb-4">
-        <i class="bi bi-lightning-fill me-2"></i>Acciones Rápidas
-    </h2>
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm hover-card">
-                <div class="card-body text-center">
-                    <div class="text-primary mb-3">
-                        <i class="bi bi-person-plus-fill display-1"></i>
-                    </div>
-                    <h5 class="card-title">Nuevo Jugador</h5>
-                    <p class="card-text">Agrega un nuevo jugador al sistema con toda su información.</p>
-                    <a th:href="@{/jugadores/nuevo}" class="btn btn-primary">
-                        <i class="bi bi-plus-circle me-2"></i>Agregar Jugador
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm hover-card">
-                <div class="card-body text-center">
-                    <div class="text-success mb-3">
-                        <i class="bi bi-upload display-1"></i>
-                    </div>
-                    <h5 class="card-title">Importar CSV</h5>
-                    <p class="card-text">Importa múltiples jugadores desde un archivo CSV de forma masiva.</p>
-                    <a th:href="@{/jugadores/importar}" class="btn btn-success">
-                        <i class="bi bi-file-earmark-csv me-2"></i>Importar Datos
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm hover-card">
-                <div class="card-body text-center">
-                    <div class="text-info mb-3">
-                        <i class="bi bi-list-ul display-1"></i>
-                    </div>
-                    <h5 class="card-title">Ver Todos</h5>
-                    <p class="card-text">Explora el listado completo de jugadores con opciones de búsqueda.</p>
-                    <a th:href="@{/jugadores}" class="btn btn-info">
-                        <i class="bi bi-eye-fill me-2"></i>Ver Listado
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Recent Players -->
-<div class="container mb-5" th:if="${not #lists.isEmpty(jugadoresRecientes)}">
-    <h2 class="h3 mb-4">
-        <i class="bi bi-clock-history me-2"></i>Jugadores Recientes
-    </h2>
-    <div class="row g-4">
-        <div class="col-md-6 col-lg-4" th:each="jugador : ${jugadoresRecientes}">
-            <div class="card shadow-sm h-100">
                 <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" 
-                             style="width: 48px; height: 48px; font-size: 18px;">
-                            <span th:text="${#strings.substring(jugador.nombreJugador, 0, 1)}"></span>
-                        </div>
-                        <div>
-                            <h5 class="card-title mb-1" th:text="${jugador.nombreJugador}"></h5>
-                            <p class="card-text text-muted mb-0" th:text="${jugador.nombreEquipo ?: 'Sin equipo'}"></p>
-                        </div>
-                    </div>
-                    <div class="row g-2 text-sm">
-                        <div class="col-6">
-                            <small class="text-muted">Posición:</small>
-                            <div><span class="badge bg-secondary" th:text="${jugador.posicion ?: 'N/A'}"></span></div>
-                        </div>
-                        <div class="col-6">
-                            <small class="text-muted">Edad/Dorsal:</small>
-                            <div th:text="${jugador.edad ?: '-'} + '/' + ${jugador.dorsal ?: '-'}"></div>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <a th:href="@{/jugadores/{id}(id=${jugador.idJugador})}" class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-eye-fill me-1"></i>Ver Detalles
+                    <div class="d-grid gap-3">
+                        <!-- Importar CSV -->
+                        <a th:href="@{/jugadores/importar}" class="btn btn-dark btn-lg">
+                            Importar CSV de Jugadores
                         </a>
+
+                        <!-- Importar Ligas -->
+                        <a th:href="@{/ligas/importar}" class="btn btn-outline-primary btn-lg">
+                            Importar CSV de Ligas
+                        </a>
+
+                        <!-- Importar Equipos -->
+                        <a th:href="@{/equipos/importar}" class="btn btn-outline-success btn-lg">
+                            Importar CSV de Equipos
+                        </a>
+
+                        <!-- Ligas -->
+                        <a th:href="@{/ligas}" class="btn btn-primary btn-lg">
+                            CRUD de Ligas
+                        </a>
+
+                        <!-- Equipos -->
+                        <a th:href="@{/equipos}" class="btn btn-success btn-lg">
+                            CRUD de Equipos
+                        </a>
+
+                        <!-- Jugadores -->
+                        <a th:href="@{/jugadores}" class="btn btn-info btn-lg">
+                            CRUD de Jugadores
+                        </a>
+
+                        <!-- Relaciones -->
+                        <a th:href="@{/je}" class="btn btn-warning btn-lg">
+                            Jugadores por Equipo
+                        </a>
+
+                        <!-- Equipos por Liga -->
+                        <a th:href="@{/je/equipos-por-liga}" class="btn btn-secondary btn-lg">
+                            Equipos por Liga
+                        </a>
+
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
 
-<!-- Features Section -->
-<div class="container mb-5">
-    <h2 class="h3 mb-4">
-        <i class="bi bi-stars me-2"></i>Características Principales
-    </h2>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <div class="d-flex">
-                <div class="text-primary me-3">
-                    <i class="bi bi-search fs-3"></i>
-                </div>
-                <div>
-                    <h5>Búsqueda y Filtrado</h5>
-                    <p class="text-muted">Encuentra jugadores rápidamente por nombre, equipo o posición.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 mb-3">
-            <div class="d-flex">
-                <div class="text-success me-3">
-                    <i class="bi bi-file-earmark-csv fs-3"></i>
-                </div>
-                <div>
-                    <h5>Importación CSV</h5>
-                    <p class="text-muted">Importa múltiples jugadores desde archivos CSV de forma sencilla.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 mb-3">
-            <div class="d-flex">
-                <div class="text-warning me-3">
-                    <i class="bi bi-pencil-square fs-3"></i>
-                </div>
-                <div>
-                    <h5>Edición Completa</h5>
-                    <p class="text-muted">Modifica toda la información de los jugadores cuando lo necesites.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 mb-3">
-            <div class="d-flex">
-                <div class="text-info me-3">
-                    <i class="bi bi-bar-chart fs-3"></i>
-                </div>
-                <div>
-                    <h5>Estadísticas en Tiempo Real</h5>
-                    <p class="text-muted">Visualiza estadísticas actualizadas de tu plantilla.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="bg-dark text-light py-4 mt-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h5><i class="bi bi-trophy-fill me-2"></i>Gestor de Jugadores</h5>
-                <p class="text-muted">Sistema de gestión de jugadores de fútbol desarrollado con Spring Boot.</p>
-            </div>
-            <div class="col-md-6">
-                <h5>Enlaces Rápidos</h5>
-                <ul class="list-unstyled">
-                    <li class="mb-2">
-                        <a th:href="@{/jugadores}" class="text-light text-decoration-none">
-                            <i class="bi bi-people-fill me-2"></i>Listado de Jugadores
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a th:href="@{/jugadores/nuevo}" class="text-light text-decoration-none">
-                            <i class="bi bi-person-plus-fill me-2"></i>Nuevo Jugador
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a th:href="@{/jugadores/importar}" class="text-light text-decoration-none">
-                            <i class="bi bi-upload me-2"></i>Importar CSV
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <hr class="bg-light my-3">
-        <div class="text-center">
-            <p class="mb-0 text-muted">© 2024 Gestor de Jugadores - Spring Boot Application</p>
-        </div>
-    </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-<style>
-    .hover-card {
-        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    }
-    .hover-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
-    }
-</style>
 </body>
 </html>

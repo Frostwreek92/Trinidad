@@ -18,8 +18,8 @@ data class Jugador(
     @Column(name = "nombre_jugador")
     var nombreJugador: String = "",
 
-    @Column(name = "nombre_equipo")
-    var nombreEquipo: String = "",
+    @Column(name = "id_equipo")
+    var idEquipo: Int = 0,
 
     @Column(name = "posicion")
     var posicion: String = "",
