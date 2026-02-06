@@ -10,5 +10,7 @@ fun PlayerDto.toDetailDomain(): PlayerDetail =
         age = player.age ?: 0,
         nationality = player.nationality ?: "N/A",
         position = player.position ?: "Desconocida",
+        height = player.height ?: "No disponible",
+        weight = player.weight ?: "No disponible",
         photo = player.photo ?: ""
     )

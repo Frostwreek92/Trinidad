@@ -98,6 +98,8 @@ fun JugadorDetailScreen(
                 Text("Posición: ${player.position}")
                 Text("Edad: ${player.age}")
                 Text("Nacionalidad: ${player.nationality}")
+                Text("Altura: ${player.height}")
+                Text("Peso: ${player.weight}")
             }
         }
 
