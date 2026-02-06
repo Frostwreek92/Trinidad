@@ -11,7 +11,6 @@ import androidx.navigation.navArgument
 import com.example.trinidad.ui.components.AppTopBar
 import com.example.trinidad.ui.screens.equipoLegendario.EquipoLegendarioScreen
 import com.example.trinidad.ui.screens.home.HomeScreen
-import com.example.trinidad.ui.screens.LigasScreen
 import com.example.trinidad.ui.screens.ligas.EquipoDetailScreen
 import com.example.trinidad.ui.screens.ligas.JugadorDetailScreen
 import com.example.trinidad.ui.screens.ligas.LigasEquiposJugadoresScreen

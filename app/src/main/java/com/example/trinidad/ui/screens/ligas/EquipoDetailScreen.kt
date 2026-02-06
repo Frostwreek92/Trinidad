@@ -1,25 +1,36 @@
 package com.example.trinidad.ui.screens.ligas
 
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.trinidad.ui.components.ExpandableSection
-import com.example.trinidad.ui.components.JugadorItem
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.trinidad.R
+import com.example.trinidad.ui.components.ExpandableSection
+import com.example.trinidad.ui.components.JugadorItem
 
 @Composable
 fun EquipoDetailScreen(
@@ -67,24 +78,28 @@ fun EquipoDetailScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(16.dp)
-                    .verticalScroll(rememberScrollState())
+                    .verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
                 // 🛡 ESCUDO DEL EQUIPO
-                AsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(team.logo)
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = "Escudo del ${team.name}",
-                    placeholder = painterResource(R.drawable.ic_player_placeholder),
-                    error = painterResource(R.drawable.ic_player_placeholder),
-                    contentScale = ContentScale.Fit,
+                Card(
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                     modifier = Modifier
-                        .size(160.dp)
-                        .padding(bottom = 16.dp)
-                        .fillMaxSize()
-                )
+                        .size(240.dp)
+                ) {
+                    AsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(team.logo)
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = "Escudo del ${team.name}",
+                        placeholder = painterResource(R.drawable.ic_player_placeholder),
+                        error = painterResource(R.drawable.ic_player_placeholder),
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
 
                 // Nombre del equipo
                 Text(
