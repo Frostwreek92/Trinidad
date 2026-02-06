@@ -1,5 +1,6 @@
 package com.example.trinidad.data.repository
 
+import androidx.compose.remote.creation.first
 import com.example.trinidad.data.mapper.toDomain
 import com.example.trinidad.data.remote.api.FootballApi
 import com.example.trinidad.domain.model.Team
@@ -17,10 +18,13 @@ class TeamRepositoryImpl(
     }
 
     override suspend fun getTeamDetail(teamId: Int): TeamDetail {
-        return api.getTeamDetail(teamId)
-            .response
-            .first()
-            .toDomain()
+        val result = api.getTeamDetail(teamId)
+
+        val teamDto = result.response.firstOrNull()
+            ?: throw Exception("No hay datos del equipo")
+
+        return teamDto.toDomain()
     }
+
 
 }

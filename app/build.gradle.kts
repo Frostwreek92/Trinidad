@@ -64,6 +64,7 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
     implementation(libs.androidx.ui)
     implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation(libs.androidx.compose.remote.creation.core)
 
 
     testImplementation(libs.junit)
