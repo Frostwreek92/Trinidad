@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import jakarta.persistence.Transient
 
 @Entity
 @Table(name = "jugadores")
@@ -19,7 +20,7 @@ data class Jugador(
     var nombreJugador: String = "",
 
     @Column(name = "id_equipo")
-    var idEquipo: Int = 0,
+    var idEquipo: Int? = null,
 
     @Column(name = "posicion")
     var posicion: String = "",
@@ -28,8 +29,11 @@ data class Jugador(
     var edad: Int = 0,
 
     @Column(name = "dorsal")
-    var dorsal: Int = 0
+    var dorsal: Int = 0,
+
+    @Transient
+    var nombreEquipo: String? = null
 ) {
     // Constructor sin argumentos para JPA
-    constructor() : this(null, "", "", "", 0, 0)
+    constructor() : this(null, "", null, "", 0, 0)
 }

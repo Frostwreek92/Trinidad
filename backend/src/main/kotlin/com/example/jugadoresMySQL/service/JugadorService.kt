@@ -61,11 +61,13 @@ class JugadorService(
 
                 Jugador(
                     nombreJugador = partes[0],
-                    nombreEquipo = partes[1],
+                    idEquipo = partes[1].toIntOrNull(),
                     posicion = partes[2],
                     edad = partes[3].toInt(),
                     dorsal = partes[4].toInt()
-                )
+                ).apply {
+                    nombreEquipo = partes[1]
+                }
             }
             .toList()
 
@@ -95,11 +97,13 @@ class JugadorService(
 
                 Jugador(
                     nombreJugador = partes[0],
-                    nombreEquipo = partes[1],
+                    idEquipo = partes[1].toIntOrNull(),
                     posicion = partes[2],
                     edad = partes[3].toInt(),
                     dorsal = partes[4].toInt()
-                )
+                ).apply {
+                    nombreEquipo = partes[1]
+                }
             }
             .toList()
 

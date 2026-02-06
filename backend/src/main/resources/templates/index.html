@@ -8,9 +8,29 @@
     <style>
         .btn {
             border-radius: 8px;
+            transition: all 0.3s ease;
         }
         .card {
             border-radius: 8px;
+        }
+        .btn-jugador {
+            background-color: #17a2b8 !important;
+            border-color: #17a2b8 !important;
+            color: #fff !important;
+        }
+        .btn-jugador:hover {
+            background-color: #138496 !important;
+            border-color: #117a8b !important;
+            color: #fff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .btn-jugador:active {
+            background-color: #17a2b8 !important;
+            border-color: #17a2b8 !important;
+            color: #fff !important;
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -35,7 +55,7 @@
                 <div class="card-body">
                     <div class="d-grid gap-3">
                         <!-- Importar CSV -->
-                        <a th:href="@{/jugadores/importar}" class="btn btn-dark btn-lg">
+                        <a th:href="@{/jugadores/importar}" class="btn btn-outline-info btn-lg">
                             Importar CSV de Jugadores
                         </a>
 
@@ -60,7 +80,7 @@
                         </a>
 
                         <!-- Jugadores -->
-                        <a th:href="@{/jugadores}" class="btn btn-info btn-lg">
+                        <a th:href="@{/jugadores}" class="btn btn-jugador btn-lg">
                             CRUD de Jugadores
                         </a>
 
