@@ -2,7 +2,6 @@ package com.example.trinidad.data.remote.api
 
 import com.example.trinidad.data.remote.dto.LeaguesResponseDto
 import com.example.trinidad.data.remote.dto.PlayersResponseDto
-import com.example.trinidad.data.remote.dto.TeamDetailDto
 import com.example.trinidad.data.remote.dto.TeamDetailResponseDto
 import com.example.trinidad.data.remote.dto.TeamsResponseDto
 import retrofit2.http.GET
