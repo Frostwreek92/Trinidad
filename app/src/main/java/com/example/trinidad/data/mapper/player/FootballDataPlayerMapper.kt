@@ -7,30 +7,34 @@ import com.example.trinidad.domain.model.PlayerDetail
 
 object FootballDataPlayerMapper {
 
-    // Para listas (squad)
+    // ─────────────────────────────
+    // LISTA DE JUGADORES (SQUAD)
+    // ─────────────────────────────
     fun fromSquadItem(dto: PlayerDto): Player {
         return Player(
             id = dto.id,
             name = dto.name,
             position = dto.position ?: "N/A",
             photo = "",
-            height = TODO(),
-            weight = TODO(),
-            nationality = TODO() // football-data NO da foto
+            height = "N/A",
+            weight = "N/A",
+            nationality = "N/A"
         )
     }
 
-    // Para detalle de jugador
+    // ─────────────────────────────
+    // DETALLE DE JUGADOR
+    // ─────────────────────────────
     fun toDetail(dto: SquadPlayerDto): PlayerDetail {
         return PlayerDetail(
             id = dto.id,
             name = dto.name,
             position = dto.position ?: "N/A",
-            age = TODO(),
-            nationality = TODO(),
-            height = TODO(),
-            weight = TODO(),
-            photo = TODO()
+            age = 0,          // football-data no da edad directa
+            nationality = "N/A",
+            height = "N/A",
+            weight = "N/A",
+            photo = ""
         )
     }
 }

@@ -25,7 +25,7 @@ class PlayerRepositoryImpl(
             ApiType.FOOTBALL_DATA -> {
                 apiProvider.footballData
                     .getTeamSquad(teamId)
-                    .squad
+                    .squad                       // ← SquadPlayerDto
                     .map { FootballDataPlayerMapper.fromSquadItem(it) }
             }
 
@@ -47,7 +47,7 @@ class PlayerRepositoryImpl(
 
             ApiType.FOOTBALL_DATA -> {
                 val item = apiProvider.footballData
-                    .getPlayer(playerId)
+                    .getPlayer(playerId)          // ← PlayerDto
 
                 FootballDataPlayerMapper.toDetail(item)
             }
