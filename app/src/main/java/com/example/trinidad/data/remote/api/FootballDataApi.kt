@@ -1,6 +1,7 @@
 package com.example.trinidad.data.remote.api
 
 import com.example.trinidad.data.remote.dto.footballdata.CompetitionsResponseDto
+import com.example.trinidad.data.remote.dto.footballdata.SquadPlayerDto
 import com.example.trinidad.data.remote.dto.footballdata.SquadResponseDto
 import com.example.trinidad.data.remote.dto.footballdata.TeamDto
 import com.example.trinidad.data.remote.dto.footballdata.TeamsResponseDto
@@ -26,4 +27,9 @@ interface FootballDataApi {
     suspend fun getTeamSquad(
         @Path("id") teamId: Int
     ): SquadResponseDto
+
+    @GET("persons/{id}")
+    suspend fun getPlayer(
+        @Path("id") playerId: Int
+    ): SquadPlayerDto
 }

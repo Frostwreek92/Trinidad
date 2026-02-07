@@ -111,8 +111,7 @@ fun EquipoDetailScreen(
 
                 // Información del equipo
                 Text("Estadio: ${team.stadium}")
-                Text("Ciudad: ${team.stadiumCity}")
-                Text("Dirección: ${team.stadiumAddress}")
+                Text("Ciudad: ${team.city}")
                 Text("Capacidad: ${team.capacity}")
 
                 Spacer(Modifier.height(24.dp))

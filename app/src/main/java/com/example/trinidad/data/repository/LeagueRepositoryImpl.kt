@@ -7,20 +7,22 @@ import com.example.trinidad.data.remote.ApiType
 import com.example.trinidad.domain.model.League
 import com.example.trinidad.domain.repository.LeagueRepository
 
-class LeagueRepositoryImpl : LeagueRepository {
+class LeagueRepositoryImpl(
+    private val apiProvider: ApiProvider
+) : LeagueRepository {
 
     override suspend fun getLeagues(): List<League> {
-        return when (ApiProvider.apiType) {
+        return when (apiProvider.currentApi) {
 
             ApiType.API_FOOTBALL -> {
-                ApiProvider.apiFootballApi
+                apiProvider.apiFootball
                     .getLeagues()
                     .response
                     .map { ApiFootballLeagueMapper.map(it) }
             }
 
             ApiType.FOOTBALL_DATA -> {
-                ApiProvider.footballDataApi
+                apiProvider.footballData
                     .getCompetitions()
                     .competitions
                     .map { FootballDataLeagueMapper.map(it) }

@@ -13,54 +13,46 @@ class PlayerRepositoryImpl(
 ) : PlayerRepository {
 
     override suspend fun getPlayersByTeam(teamId: Int): List<Player> {
-        return when (apiProvider.apiType) {
+        return when (apiProvider.currentApi) {
 
             ApiType.API_FOOTBALL -> {
-                val response = apiProvider.apiFootballApi
-                    .getPlayersByTeam(teamId = teamId, season = 2023)
-
-                response.response.map {
-                    ApiFootballPlayerMapper.map(it.player)
-                }
+                apiProvider.apiFootball
+                    .getPlayersByTeam(teamId, season = 2023)
+                    .response
+                    .map { ApiFootballPlayerMapper.fromListItem(it) }
             }
 
             ApiType.FOOTBALL_DATA -> {
-                val response = apiProvider.footballDataApi
+                apiProvider.footballData
                     .getTeamSquad(teamId)
-
-                response.squad.map {
-                    FootballDataPlayerMapper.map(it)
-                }
+                    .squad
+                    .map { FootballDataPlayerMapper.fromSquadItem(it) }
             }
+
+            else -> emptyList()
         }
     }
 
     override suspend fun getPlayerDetail(playerId: Int): PlayerDetail {
-        return when (apiProvider.apiType) {
+        return when (apiProvider.currentApi) {
 
             ApiType.API_FOOTBALL -> {
-                val response = apiProvider.apiFootballApi
-                    .getPlayerDetail(playerId = playerId, season = 2023)
+                val item = apiProvider.apiFootball
+                    .getPlayerDetail(playerId)
+                    .response
+                    .first()
 
-                ApiFootballPlayerMapper.mapDetail(
-                    response.response.first().player
-                )
+                ApiFootballPlayerMapper.toDetail(item)
             }
 
             ApiType.FOOTBALL_DATA -> {
-                // football-data.org NO tiene endpoint de detalle de jugador
-                // reutilizamos el mapper básico
-                PlayerDetail(
-                    id = playerId,
-                    name = "Unknown",
-                    photo = "",
-                    position = "Unknown",
-                    height = "Unknown",
-                    weight = "Unknown",
-                    age = 0,
-                    nationality = "Unknown"
-                )
+                val item = apiProvider.footballData
+                    .getPlayer(playerId)
+
+                FootballDataPlayerMapper.toDetail(item)
             }
+
+            else -> throw IllegalStateException("API no soportada")
         }
     }
 }

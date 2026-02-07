@@ -8,13 +8,13 @@ import com.example.trinidad.data.remote.network.FootballDataNetworkModule
 object ApiProvider {
 
     // 🔁 CAMBIA SOLO ESTO PARA CAMBIAR DE API
-    var apiType: ApiType = ApiType.API_FOOTBALL
+    var currentApi: ApiType = ApiType.FOOTBALL_DATA
 
-    val apiFootballApi: ApiFootballApi by lazy {
+    val apiFootball by lazy {
         ApiFootballNetworkModule.provideApi()
     }
 
-    val footballDataApi: FootballDataApi by lazy {
+    val footballData by lazy {
         FootballDataNetworkModule.provideApi()
     }
 }
