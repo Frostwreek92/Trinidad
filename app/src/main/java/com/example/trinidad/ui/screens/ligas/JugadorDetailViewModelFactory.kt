@@ -2,7 +2,6 @@ package com.example.trinidad.ui.screens.ligas
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.trinidad.data.remote.ApiProvider.provideFootballApi
 import com.example.trinidad.data.repository.PlayerRepositoryImpl
 import com.example.trinidad.domain.usecase.GetPlayerDetailUseCase
 
@@ -10,13 +9,18 @@ class JugadorDetailViewModelFactory(
     private val playerId: Int
 ) : ViewModelProvider.Factory {
 
-    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(JugadorDetailViewModel::class.java)) {
 
-        val api = provideFootballApi()
-        val repository = PlayerRepositoryImpl(api)
-        val useCase = GetPlayerDetailUseCase(repository)
+            val repository = PlayerRepositoryImpl()
+            val getPlayerDetailUseCase = GetPlayerDetailUseCase(repository)
 
-        return JugadorDetailViewModel(playerId, useCase) as T
+            return JugadorDetailViewModel(
+                playerId = playerId,
+                getPlayerDetailUseCase = getPlayerDetailUseCase
+            ) as T
+        }
+
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

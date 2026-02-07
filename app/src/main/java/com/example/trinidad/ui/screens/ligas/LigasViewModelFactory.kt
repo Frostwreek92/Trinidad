@@ -2,7 +2,9 @@ package com.example.trinidad.ui.screens.ligas
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.trinidad.data.remote.ApiProvider
 import com.example.trinidad.data.remote.ApiProvider.provideFootballApi
+import com.example.trinidad.data.remote.ApiType
 import com.example.trinidad.data.repository.LeagueRepositoryImpl
 import com.example.trinidad.data.repository.TeamRepositoryImpl
 import com.example.trinidad.domain.usecase.GetLeaguesUseCase
@@ -12,10 +14,13 @@ class LigasViewModelFactory : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
 
-        val api = provideFootballApi()
+        val apiType = ApiType.API_FOOTBALL
 
-        val leagueRepository = LeagueRepositoryImpl(api)
-        val teamRepository = TeamRepositoryImpl(api)
+        val leagueRepo = LeagueRepositoryImpl(
+            apiType = apiType,
+            apiFootballApi = ApiProvider.provideApiFootball(),
+            footballDataApi = ApiProvider.provideFootballData()
+        )
 
         val getLeaguesUseCase = GetLeaguesUseCase(leagueRepository)
         val getTeamsByLeagueUseCase = GetTeamsByLeagueUseCase(teamRepository)

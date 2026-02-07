@@ -1,11 +1,11 @@
-package com.example.trinidad.data.remote.dto
+package com.example.trinidad.data.remote.dto.apifootball
 
 data class VenueDto(
     val id: Int?,
     val name: String?,
     val address: String?,
     val city: String?,
-    val capacity: Int?,
+    val capacity: Int?,      // ← 🔴 ESTO FALTABA
     val surface: String?,
     val image: String?
 )

@@ -1,35 +1,36 @@
 package com.example.trinidad.data.remote.network
 
-import com.example.trinidad.data.remote.api.FootballApi
+import com.example.trinidad.data.remote.api.FootballDataApi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object FootballNetworkModule {
+object FootballDataNetworkModule {
 
-    private const val BASE_URL = "https://v3.football.api-sports.io/"
-    private const val API_KEY = "a760a5e65776e9ee8548dd1b098fec2e"
+    private const val BASE_URL = "https://api.football-data.org/v4/"
+    private const val API_KEY = "6fc6b168035441378048ee6f0ddd5d10"
 
-    fun provideApi(): FootballApi {
-
+    private fun provideOkHttpClient(): OkHttpClient {
         val interceptor = Interceptor { chain ->
             val request = chain.request()
                 .newBuilder()
-                .addHeader("x-apisports-key", API_KEY)
+                .addHeader("X-Auth-Token", API_KEY)
                 .build()
             chain.proceed(request)
         }
 
-        val client = OkHttpClient.Builder()
+        return OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .build()
+    }
 
+    fun provideApi(): FootballDataApi {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(client)
+            .client(provideOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(FootballApi::class.java)
+            .create(FootballDataApi::class.java)
     }
 }

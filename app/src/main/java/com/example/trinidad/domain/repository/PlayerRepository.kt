@@ -9,6 +9,3 @@ interface PlayerRepository {
 
     suspend fun getPlayerDetail(playerId: Int): PlayerDetail
 }
-
-
-
