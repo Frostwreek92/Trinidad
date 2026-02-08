@@ -25,7 +25,7 @@ import com.example.trinidad.ui.components.LigaCard
 import com.example.trinidad.ui.components.SearchBar
 
 @Composable
-fun LigasEquiposJugadoresScreen(
+fun LigasDetailScreen(
     onEquipoClick: (Int) -> Unit,
     viewModel: LigasViewModel = viewModel(factory = LigasViewModelFactory())
 ) {

@@ -13,7 +13,7 @@ import com.example.trinidad.ui.screens.equipoLegendario.EquipoLegendarioScreen
 import com.example.trinidad.ui.screens.home.HomeScreen
 import com.example.trinidad.ui.screens.ligas.EquipoDetailScreen
 import com.example.trinidad.ui.screens.ligas.JugadorDetailScreen
-import com.example.trinidad.ui.screens.ligas.LigasEquiposJugadoresScreen
+import com.example.trinidad.ui.screens.ligas.LigasDetailScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
@@ -47,7 +47,7 @@ fun AppNavGraph(navController: NavHostController) {
             }
 
             composable(Routes.Ligas.route) {
-                LigasEquiposJugadoresScreen(
+                LigasDetailScreen(
                     onEquipoClick = { equipoId ->
                         navController.navigate(
                             Routes.EquipoDetail.createRoute(equipoId)
