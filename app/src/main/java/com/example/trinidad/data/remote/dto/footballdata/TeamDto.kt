@@ -5,6 +5,6 @@ data class TeamDto(
     val name: String?,
     val shortName: String?,
     val crest: String?,
-    val venue: String?,      // ← STRING, no objeto
+    val venue: String?,
     val area: AreaDto?
 )

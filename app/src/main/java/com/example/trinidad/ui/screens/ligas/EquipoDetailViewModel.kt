@@ -21,8 +21,8 @@ class EquipoDetailViewModel(
     val teamState: StateFlow<EquipoDetailUiState> = _teamState
 
     private val _playersState =
-        MutableStateFlow<PlayersUiState>(PlayersUiState.Idle)
-    val playersState: StateFlow<PlayersUiState> = _playersState
+        MutableStateFlow<JugadorUiState>(JugadorUiState.Idle)
+    val playersState: StateFlow<JugadorUiState> = _playersState
 
     init {
         loadTeam()
@@ -43,9 +43,9 @@ class EquipoDetailViewModel(
     }
 
     fun loadPlayers() {
-        if (_playersState.value != PlayersUiState.Idle) return
+        if (_playersState.value != JugadorUiState.Idle) return
 
-        _playersState.value = PlayersUiState.Loading
+        _playersState.value = JugadorUiState.Loading
 
         viewModelScope.launch {
             try {
@@ -57,10 +57,10 @@ class EquipoDetailViewModel(
 
                 if (players.isEmpty()) {
                     _playersState.value =
-                        PlayersUiState.Error("No hay jugadores disponibles")
+                        JugadorUiState.Error("No hay jugadores disponibles")
                 } else {
                     _playersState.value =
-                        PlayersUiState.Success(players)
+                        JugadorUiState.Success(players)
                 }
 
             } catch (e: HttpException) {
@@ -70,7 +70,7 @@ class EquipoDetailViewModel(
                     e
                 )
                 _playersState.value =
-                    PlayersUiState.Error("Error HTTP ${e.code()}")
+                    JugadorUiState.Error("Error HTTP ${e.code()}")
 
             } catch (e: Exception) {
                 Log.e(
@@ -79,7 +79,7 @@ class EquipoDetailViewModel(
                     e
                 )
                 _playersState.value =
-                    PlayersUiState.Error(e.message ?: "Error desconocido")
+                    JugadorUiState.Error(e.message ?: "Error desconocido")
             }
         }
     }

@@ -5,12 +5,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import com.example.trinidad.domain.model.League
-import com.example.trinidad.ui.screens.ligas.TeamsUiState
+import com.example.trinidad.ui.screens.ligas.EquipoUiState
 
 @Composable
 fun LigaCard(
     liga: League,
-    teamsState: TeamsUiState,
+    teamsState: EquipoUiState,
     onExpand: () -> Unit,
     onEquipoClick: (Int) -> Unit
 ) {
@@ -20,18 +20,18 @@ fun LigaCard(
     ) {
         when (teamsState) {
 
-            is TeamsUiState.Loading -> {
+            is EquipoUiState.Loading -> {
                 CircularProgressIndicator()
             }
 
-            is TeamsUiState.Error -> {
+            is EquipoUiState.Error -> {
                 Text(
                     text = teamsState.message,
                     color = MaterialTheme.colorScheme.error
                 )
             }
 
-            is TeamsUiState.Success -> {
+            is EquipoUiState.Success -> {
                 teamsState.teams.forEach { team ->
                     EquipoItem(
                         nombre = team.name,

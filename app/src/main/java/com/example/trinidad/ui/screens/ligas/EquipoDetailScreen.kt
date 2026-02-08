@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -126,29 +125,29 @@ fun EquipoDetailScreen(
 
                     when (playersState) {
 
-                        is PlayersUiState.Idle -> {
+                        is JugadorUiState.Idle -> {
                             Text(
                                 text = "Pulsa para cargar jugadores",
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }
 
-                        is PlayersUiState.Loading -> {
+                        is JugadorUiState.Loading -> {
                             CircularProgressIndicator(
                                 modifier = Modifier.padding(8.dp)
                             )
                         }
 
-                        is PlayersUiState.Error -> {
+                        is JugadorUiState.Error -> {
                             Text(
-                                text = (playersState as PlayersUiState.Error).message,
+                                text = (playersState as JugadorUiState.Error).message,
                                 color = MaterialTheme.colorScheme.error
                             )
                         }
 
-                        is PlayersUiState.Success -> {
+                        is JugadorUiState.Success -> {
                             val players =
-                                (playersState as PlayersUiState.Success).players
+                                (playersState as JugadorUiState.Success).players
 
                             players.forEach { player ->
                                 JugadorItem(

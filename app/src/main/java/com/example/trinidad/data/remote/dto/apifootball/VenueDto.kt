@@ -5,7 +5,7 @@ data class VenueDto(
     val name: String?,
     val address: String?,
     val city: String?,
-    val capacity: Int?,      // ← 🔴 ESTO FALTABA
+    val capacity: Int?,
     val surface: String?,
     val image: String?
 )

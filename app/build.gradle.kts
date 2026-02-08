@@ -47,27 +47,28 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.navigation.compose)
-
-    // Retrofit (cliente de red)
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-// Conversor JSON (gson)
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-// OkHttp para headers y logging
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
-// Coroutines para llamadas asíncronas
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-// Coil para cargar imágenes
-    implementation("io.coil-kt:coil-compose:2.4.0")
-// Material Icons Extended (NECESARIO para ExpandMore)
-    implementation("androidx.compose.material:material-icons-extended")
     implementation(libs.androidx.ui)
-    implementation("io.coil-kt:coil-compose:2.6.0")
     implementation(libs.androidx.compose.remote.creation.core)
 
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("io.coil-kt:coil-compose:2.6.0")
 
+    //Test
     testImplementation(libs.junit)
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+    testImplementation("io.mockk:mockk:1.14.9")
+    testImplementation("com.google.truth:truth:1.4.5")
+    testImplementation("com.squareup.okhttp3:mockwebserver:5.3.2")
+    testImplementation("com.squareup.retrofit2:converter-gson:3.0.0")
+    testImplementation("com.google.code.gson:gson:2.10.1")
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

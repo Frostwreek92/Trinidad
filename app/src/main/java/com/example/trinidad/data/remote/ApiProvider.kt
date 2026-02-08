@@ -1,7 +1,5 @@
 package com.example.trinidad.data.remote
 
-import com.example.trinidad.data.remote.api.ApiFootballApi
-import com.example.trinidad.data.remote.api.FootballDataApi
 import com.example.trinidad.data.remote.network.ApiFootballNetworkModule
 import com.example.trinidad.data.remote.network.FootballDataNetworkModule
 

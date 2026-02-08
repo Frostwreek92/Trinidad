@@ -1,6 +1,5 @@
 package com.example.trinidad.data.remote.api
 
-import com.example.trinidad.data.remote.dto.*
 import com.example.trinidad.data.remote.dto.apifootball.LeaguesResponseDto
 import com.example.trinidad.data.remote.dto.apifootball.PlayersResponseDto
 import com.example.trinidad.data.remote.dto.apifootball.TeamsResponseDto
@@ -24,7 +23,6 @@ interface ApiFootballApi {
         @Query("league") leagueId: Int,
         @Query("season") season: Int
     ): TeamsResponseDto
-
 
 
     // ────────────────

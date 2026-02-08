@@ -17,8 +17,8 @@ class LigasViewModel(
     val ligasState: StateFlow<LigasUiState> = _ligasState
 
     private val _teamsState =
-        MutableStateFlow<Map<Int, TeamsUiState>>(emptyMap())
-    val teamsState: StateFlow<Map<Int, TeamsUiState>> = _teamsState
+        MutableStateFlow<Map<Int, EquipoUiState>>(emptyMap())
+    val teamsState: StateFlow<Map<Int, EquipoUiState>> = _teamsState
 
     init {
         loadLigas()
@@ -40,16 +40,16 @@ class LigasViewModel(
         if (_teamsState.value[leagueId] != null) return
 
         _teamsState.value =
-            _teamsState.value + (leagueId to TeamsUiState.Loading)
+            _teamsState.value + (leagueId to EquipoUiState.Loading)
 
         viewModelScope.launch {
             try {
                 val teams = getTeamsByLeague(leagueId)
                 _teamsState.value =
-                    _teamsState.value + (leagueId to TeamsUiState.Success(teams))
+                    _teamsState.value + (leagueId to EquipoUiState.Success(teams))
             } catch (e: Exception) {
                 _teamsState.value =
-                    _teamsState.value + (leagueId to TeamsUiState.Error("Error cargando equipos"))
+                    _teamsState.value + (leagueId to EquipoUiState.Error("Error cargando equipos"))
             }
         }
     }

@@ -18,4 +18,3 @@ data class LeagueInfoDto(
 data class CountryDto(
     val name: String?
 )
-

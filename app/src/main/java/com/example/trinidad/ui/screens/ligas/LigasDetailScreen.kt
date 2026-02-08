@@ -102,7 +102,7 @@ fun LigasDetailScreen(
                             items(ligas) { liga ->
                                 LigaCard(
                                     liga = liga,
-                                    teamsState = teamsState[liga.id] ?: TeamsUiState.Idle,
+                                    teamsState = teamsState[liga.id] ?: EquipoUiState.Idle,
                                     onExpand = {
                                         viewModel.loadTeamsIfNeeded(liga.id)
                                     },
