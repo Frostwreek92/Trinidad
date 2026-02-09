@@ -31,14 +31,10 @@ import com.example.trinidad.R
 fun JugadorDetailScreen(
     jugadorId: Int
 ) {
-
     val viewModel: JugadorDetailViewModel =
         viewModel(factory = JugadorDetailViewModelFactory(jugadorId))
-
     val uiState by viewModel.uiState.collectAsState()
-
     when (uiState) {
-
         is JugadorDetailUiState.Loading -> {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -47,26 +43,20 @@ fun JugadorDetailScreen(
                 CircularProgressIndicator()
             }
         }
-
         is JugadorDetailUiState.Error -> {
             Text(
                 text = (uiState as JugadorDetailUiState.Error).message,
                 color = MaterialTheme.colorScheme.error
             )
         }
-
         is JugadorDetailUiState.Success -> {
-
             val player = (uiState as JugadorDetailUiState.Success).player
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
-                // 🖼 FOTO DEL JUGADOR
                 Card(
                     shape = CircleShape,
                     elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -86,15 +76,11 @@ fun JugadorDetailScreen(
                         modifier = Modifier.fillMaxSize()
                     )
                 }
-
-                // Nombre
                 Text(
                     text = player.name,
                     style = MaterialTheme.typography.headlineMedium
                 )
-
                 Spacer(modifier = Modifier.height(12.dp))
-
                 Text("Posición: ${player.position}")
                 Text("Edad: ${player.age}")
                 Text("Nacionalidad: ${player.nationality}")
@@ -102,6 +88,5 @@ fun JugadorDetailScreen(
                 Text("Peso: ${player.weight}")
             }
         }
-
     }
 }

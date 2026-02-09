@@ -19,18 +19,15 @@ fun LigaCard(
         onExpand = onExpand
     ) {
         when (teamsState) {
-
             is EquipoUiState.Loading -> {
                 CircularProgressIndicator()
             }
-
             is EquipoUiState.Error -> {
                 Text(
                     text = teamsState.message,
                     color = MaterialTheme.colorScheme.error
                 )
             }
-
             is EquipoUiState.Success -> {
                 teamsState.teams.forEach { team ->
                     EquipoItem(
@@ -39,7 +36,6 @@ fun LigaCard(
                     )
                 }
             }
-
             else -> Unit
         }
     }

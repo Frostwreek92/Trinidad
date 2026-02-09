@@ -1,7 +1,7 @@
 package com.example.trinidad.data.mapper.team
 
-import com.example.trinidad.data.remote.dto.footballdata.TeamDto
 import com.example.trinidad.data.remote.dto.footballdata.AreaDto
+import com.example.trinidad.data.remote.dto.footballdata.TeamDto
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 

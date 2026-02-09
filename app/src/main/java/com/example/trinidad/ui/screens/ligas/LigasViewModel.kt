@@ -12,18 +12,14 @@ class LigasViewModel(
     private val getLeaguesUseCase: GetLeaguesUseCase,
     private val getTeamsByLeague: GetTeamsByLeagueUseCase
 ) : ViewModel() {
-
     private val _ligasState = MutableStateFlow<LigasUiState>(LigasUiState.Loading)
     val ligasState: StateFlow<LigasUiState> = _ligasState
-
     private val _teamsState =
         MutableStateFlow<Map<Int, EquipoUiState>>(emptyMap())
     val teamsState: StateFlow<Map<Int, EquipoUiState>> = _teamsState
-
     init {
         loadLigas()
     }
-
     private fun loadLigas() {
         viewModelScope.launch {
             try {
@@ -35,13 +31,10 @@ class LigasViewModel(
             }
         }
     }
-
     fun loadTeamsIfNeeded(leagueId: Int) {
         if (_teamsState.value[leagueId] != null) return
-
         _teamsState.value =
             _teamsState.value + (leagueId to EquipoUiState.Loading)
-
         viewModelScope.launch {
             try {
                 val teams = getTeamsByLeague(leagueId)

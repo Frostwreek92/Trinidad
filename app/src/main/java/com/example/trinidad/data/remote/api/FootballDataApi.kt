@@ -10,6 +10,9 @@ import retrofit2.http.Path
 
 interface FootballDataApi {
 
+    // ────────────────
+    // COMPETICIONES
+    // ────────────────
     @GET("competitions")
     suspend fun getCompetitions(): CompetitionsResponseDto
 

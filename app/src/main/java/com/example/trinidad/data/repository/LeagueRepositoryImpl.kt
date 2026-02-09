@@ -13,14 +13,12 @@ class LeagueRepositoryImpl(
 
     override suspend fun getLeagues(): List<League> {
         return when (apiProvider.currentApi) {
-
             ApiType.API_FOOTBALL -> {
                 apiProvider.apiFootball
                     .getLeagues()
                     .response
                     .map { ApiFootballLeagueMapper.map(it) }
             }
-
             ApiType.FOOTBALL_DATA -> {
                 apiProvider.footballData
                     .getCompetitions()

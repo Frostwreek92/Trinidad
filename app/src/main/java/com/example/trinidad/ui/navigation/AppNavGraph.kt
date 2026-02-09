@@ -17,10 +17,8 @@ import com.example.trinidad.ui.screens.ligas.LigasDetailScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
-
     val currentRoute =
         navController.currentBackStackEntry?.destination?.route
-
     Scaffold(
         topBar = {
             AppTopBar(
@@ -29,7 +27,6 @@ fun AppNavGraph(navController: NavHostController) {
             )
         }
     ) { padding ->
-
         NavHost(
             navController = navController,
             startDestination = Routes.Home.route,
@@ -45,7 +42,6 @@ fun AppNavGraph(navController: NavHostController) {
                     }
                 )
             }
-
             composable(Routes.Ligas.route) {
                 LigasDetailScreen(
                     onEquipoClick = { equipoId ->
@@ -55,7 +51,6 @@ fun AppNavGraph(navController: NavHostController) {
                     }
                 )
             }
-
             composable(
                 route = Routes.EquipoDetail.route,
                 arguments = listOf(navArgument("equipoId") { type = NavType.IntType })
@@ -71,7 +66,6 @@ fun AppNavGraph(navController: NavHostController) {
                     }
                 )
             }
-
             composable(
                 route = Routes.JugadorDetail.route,
                 arguments = listOf(navArgument("jugadorId") { type = NavType.IntType })
@@ -79,7 +73,6 @@ fun AppNavGraph(navController: NavHostController) {
                 val jugadorId = backStackEntry.arguments?.getInt("jugadorId") ?: return@composable
                 JugadorDetailScreen(jugadorId = jugadorId)
             }
-
             composable(
                 route = "jugador/{jugadorId}",
                 arguments = listOf(navArgument("jugadorId") { type = NavType.IntType })
@@ -89,8 +82,6 @@ fun AppNavGraph(navController: NavHostController) {
 
                 JugadorDetailScreen(jugadorId)
             }
-
-
             composable(Routes.EquipoLegendario.route) {
                 EquipoLegendarioScreen()
             }

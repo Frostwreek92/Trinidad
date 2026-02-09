@@ -36,18 +36,11 @@ fun EquipoDetailScreen(
     equipoId: Int,
     onJugadorClick: (Int) -> Unit
 ) {
-
     val viewModel: EquipoDetailViewModel =
         viewModel(factory = EquipoDetailViewModelFactory(equipoId))
-
-    // Estado del equipo
     val teamState by viewModel.teamState.collectAsState()
-
-    // Estado de los jugadores
     val playersState by viewModel.playersState.collectAsState()
-
     when (teamState) {
-
         is EquipoDetailUiState.Loading -> {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -56,7 +49,6 @@ fun EquipoDetailScreen(
                 CircularProgressIndicator()
             }
         }
-
         is EquipoDetailUiState.Error -> {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -68,11 +60,8 @@ fun EquipoDetailScreen(
                 )
             }
         }
-
         is EquipoDetailUiState.Success -> {
-
             val team = (teamState as EquipoDetailUiState.Success).team
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -80,8 +69,6 @@ fun EquipoDetailScreen(
                     .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
-                // 🛡 ESCUDO DEL EQUIPO
                 Card(
                     elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
                     modifier = Modifier
@@ -99,56 +86,42 @@ fun EquipoDetailScreen(
                         modifier = Modifier.fillMaxSize()
                     )
                 }
-
-                // Nombre del equipo
                 Text(
                     text = team.name,
                     style = MaterialTheme.typography.headlineMedium
                 )
-
                 Spacer(Modifier.height(8.dp))
-
-                // Información del equipo
                 Text("Estadio: ${team.stadium}")
                 Text("Ciudad: ${team.city}")
                 Text("Capacidad: ${team.capacity}")
-
                 Spacer(Modifier.height(24.dp))
-
-                // 🔽 SECCIÓN DESPLEGABLE DE JUGADORES
                 ExpandableSection(
                     title = "Jugadores",
                     onExpand = {
                         viewModel.loadPlayers()
                     }
                 ) {
-
                     when (playersState) {
-
                         is JugadorUiState.Idle -> {
                             Text(
                                 text = "Pulsa para cargar jugadores",
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }
-
                         is JugadorUiState.Loading -> {
                             CircularProgressIndicator(
                                 modifier = Modifier.padding(8.dp)
                             )
                         }
-
                         is JugadorUiState.Error -> {
                             Text(
                                 text = (playersState as JugadorUiState.Error).message,
                                 color = MaterialTheme.colorScheme.error
                             )
                         }
-
                         is JugadorUiState.Success -> {
                             val players =
                                 (playersState as JugadorUiState.Success).players
-
                             players.forEach { player ->
                                 JugadorItem(
                                     nombre = player.name,

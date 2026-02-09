@@ -9,12 +9,9 @@ import com.example.trinidad.domain.usecase.GetPlayerDetailUseCase
 class JugadorDetailViewModelFactory(
     private val playerId: Int
 ) : ViewModelProvider.Factory {
-
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-
         val playerRepository = PlayerRepositoryImpl(ApiProvider)
         val getPlayerDetailUseCase = GetPlayerDetailUseCase(playerRepository)
-
         return JugadorDetailViewModel(
             playerId = playerId,
             getPlayerDetailUseCase = getPlayerDetailUseCase

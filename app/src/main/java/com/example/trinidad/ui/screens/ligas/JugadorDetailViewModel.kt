@@ -11,15 +11,12 @@ class JugadorDetailViewModel(
     private val playerId: Int,
     private val getPlayerDetailUseCase: GetPlayerDetailUseCase
 ) : ViewModel() {
-
     private val _uiState =
         MutableStateFlow<JugadorDetailUiState>(JugadorDetailUiState.Loading)
     val uiState: StateFlow<JugadorDetailUiState> = _uiState
-
     init {
         loadPlayer()
     }
-
     private fun loadPlayer() {
         viewModelScope.launch {
             try {

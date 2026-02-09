@@ -4,14 +4,17 @@ import com.example.trinidad.data.remote.ApiProvider
 import com.example.trinidad.data.remote.ApiType
 import com.example.trinidad.data.remote.api.ApiFootballApi
 import com.example.trinidad.data.remote.api.FootballDataApi
-import com.example.trinidad.data.remote.dto.apifootball.*
-import com.example.trinidad.data.remote.dto.footballdata.*
+import com.example.trinidad.data.remote.dto.apifootball.PlayerDto
+import com.example.trinidad.data.remote.dto.apifootball.PlayerResponseItemDto
+import com.example.trinidad.data.remote.dto.apifootball.PlayersResponseDto
+import com.example.trinidad.data.remote.dto.footballdata.SquadPlayerDto
 import com.google.common.truth.Truth.assertThat
-import io.mockk.*
+import io.mockk.coEvery
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
-import com.example.trinidad.data.remote.dto.apifootball.PlayerDto
 
 
 class PlayerRepositoryImplTest {

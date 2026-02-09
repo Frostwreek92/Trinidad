@@ -14,7 +14,6 @@ interface ApiFootballApi {
     @GET("leagues")
     suspend fun getLeagues(): LeaguesResponseDto
 
-
     // ────────────────
     // EQUIPOS
     // ────────────────
@@ -24,7 +23,6 @@ interface ApiFootballApi {
         @Query("season") season: Int
     ): TeamsResponseDto
 
-
     // ────────────────
     // DETALLE EQUIPO
     // ────────────────
@@ -32,7 +30,6 @@ interface ApiFootballApi {
     suspend fun getTeamDetail(
         @Query("id") teamId: Int
     ): TeamsResponseDto
-
 
     // ────────────────
     // JUGADORES
@@ -42,7 +39,6 @@ interface ApiFootballApi {
         @Query("team") teamId: Int,
         @Query("season") season: Int = 2023
     ): PlayersResponseDto
-
 
     // ────────────────
     // DETALLE JUGADOR

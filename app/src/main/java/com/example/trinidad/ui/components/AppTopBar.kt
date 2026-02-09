@@ -33,7 +33,7 @@ fun AppTopBar(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(110.dp) // altura típica del TopAppBar
+                .height(110.dp)
         )
 
         TopAppBar(
@@ -49,7 +49,7 @@ fun AppTopBar(
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Volver",
-                            tint = Color.White
+                            tint = Color.Red
                         )
                     }
                 }

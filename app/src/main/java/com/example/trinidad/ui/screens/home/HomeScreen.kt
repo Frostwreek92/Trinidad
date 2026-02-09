@@ -23,19 +23,16 @@ fun HomeScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(32.dp),
-        verticalArrangement = Arrangement.Top,
+        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         Button(
             onClick = onNavigateToLigas,
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Ligas / Equipos / Jugadores")
         }
-
         Spacer(modifier = Modifier.height(16.dp))
-
         Button(
             onClick = onNavigateToEquipoLegendario,
             modifier = Modifier.fillMaxWidth()

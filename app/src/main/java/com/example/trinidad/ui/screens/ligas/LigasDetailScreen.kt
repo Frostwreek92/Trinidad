@@ -29,12 +29,9 @@ fun LigasDetailScreen(
     onEquipoClick: (Int) -> Unit,
     viewModel: LigasViewModel = viewModel(factory = LigasViewModelFactory())
 ) {
-
     val ligasState by viewModel.ligasState.collectAsState()
     var searchQuery by rememberSaveable { mutableStateOf("") }
-
     when (ligasState) {
-
         is LigasUiState.Loading -> {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -43,7 +40,6 @@ fun LigasDetailScreen(
                 CircularProgressIndicator()
             }
         }
-
         is LigasUiState.Error -> {
             val message = (ligasState as LigasUiState.Error).message
             Text(
@@ -52,33 +48,25 @@ fun LigasDetailScreen(
                 color = MaterialTheme.colorScheme.error
             )
         }
-
         is LigasUiState.Success -> {
-
             val ligas = (ligasState as LigasUiState.Success).ligas
                 .filter {
                     it.name.contains(searchQuery, ignoreCase = true)
                 }
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(16.dp)
             ) {
-
                 SearchBar(
                     query = searchQuery,
                     onQueryChange = { searchQuery = it },
                     placeholder = "Buscar liga..."
                 )
-
                 Spacer(modifier = Modifier.height(16.dp))
-
                 val ligasState by viewModel.ligasState.collectAsState()
                 val teamsState by viewModel.teamsState.collectAsState()
-
                 when (ligasState) {
-
                     is LigasUiState.Loading -> {
                         Box(
                             modifier = Modifier.fillMaxSize(),
@@ -87,17 +75,14 @@ fun LigasDetailScreen(
                             CircularProgressIndicator()
                         }
                     }
-
                     is LigasUiState.Error -> {
                         Text(
                             text = (ligasState as LigasUiState.Error).message,
                             color = MaterialTheme.colorScheme.error
                         )
                     }
-
                     is LigasUiState.Success -> {
                         val ligas = (ligasState as LigasUiState.Success).ligas
-
                         LazyColumn {
                             items(ligas) { liga ->
                                 LigaCard(
@@ -112,7 +97,6 @@ fun LigasDetailScreen(
                         }
                     }
                 }
-
             }
         }
     }

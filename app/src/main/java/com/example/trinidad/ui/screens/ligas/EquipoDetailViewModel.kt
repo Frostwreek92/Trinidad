@@ -15,19 +15,15 @@ class EquipoDetailViewModel(
     private val getTeamDetailUseCase: GetTeamDetailUseCase,
     private val getPlayersByTeamUseCase: GetPlayersByTeamUseCase
 ) : ViewModel() {
-
     private val _teamState =
         MutableStateFlow<EquipoDetailUiState>(EquipoDetailUiState.Loading)
     val teamState: StateFlow<EquipoDetailUiState> = _teamState
-
     private val _playersState =
         MutableStateFlow<JugadorUiState>(JugadorUiState.Idle)
     val playersState: StateFlow<JugadorUiState> = _playersState
-
     init {
         loadTeam()
     }
-
     private fun loadTeam() {
         viewModelScope.launch {
             try {
@@ -41,20 +37,14 @@ class EquipoDetailViewModel(
             }
         }
     }
-
     fun loadPlayers() {
         if (_playersState.value != JugadorUiState.Idle) return
-
         _playersState.value = JugadorUiState.Loading
-
         viewModelScope.launch {
             try {
                 Log.d("PlayersAPI", "Cargando jugadores del equipo $teamId")
-
                 val players = getPlayersByTeamUseCase(teamId)
-
                 Log.d("PlayersAPI", "Jugadores recibidos: ${players.size}")
-
                 if (players.isEmpty()) {
                     _playersState.value =
                         JugadorUiState.Error("No hay jugadores disponibles")
@@ -62,7 +52,6 @@ class EquipoDetailViewModel(
                     _playersState.value =
                         JugadorUiState.Success(players)
                 }
-
             } catch (e: HttpException) {
                 Log.e(
                     "PlayersAPI",
@@ -71,7 +60,6 @@ class EquipoDetailViewModel(
                 )
                 _playersState.value =
                     JugadorUiState.Error("Error HTTP ${e.code()}")
-
             } catch (e: Exception) {
                 Log.e(
                     "PlayersAPI",

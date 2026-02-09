@@ -23,7 +23,7 @@ object FootballDataPlayerMapper {
     }
 
     // ─────────────────────────────
-    // DETALLE DE JUGADOR
+    // DETALLE DE JUGADOR (SQUAD)
     // ─────────────────────────────
     fun toDetail(dto: SquadPlayerDto): PlayerDetail {
         return PlayerDetail(

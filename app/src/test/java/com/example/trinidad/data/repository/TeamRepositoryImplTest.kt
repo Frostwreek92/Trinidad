@@ -7,13 +7,15 @@ import com.example.trinidad.data.remote.api.FootballDataApi
 import com.example.trinidad.data.remote.dto.apifootball.TeamDto
 import com.example.trinidad.data.remote.dto.apifootball.TeamResponseItemDto
 import com.example.trinidad.data.remote.dto.apifootball.TeamsResponseDto
-import com.example.trinidad.data.remote.dto.footballdata.TeamDto as FootballDataTeamDto
 import com.example.trinidad.data.remote.dto.footballdata.AreaDto
 import com.google.common.truth.Truth.assertThat
-import io.mockk.*
+import io.mockk.coEvery
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import com.example.trinidad.data.remote.dto.footballdata.TeamDto as FootballDataTeamDto
 
 class TeamRepositoryImplTest {
 

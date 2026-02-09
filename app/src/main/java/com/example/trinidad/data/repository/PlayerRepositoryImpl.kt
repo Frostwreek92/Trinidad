@@ -14,44 +14,36 @@ class PlayerRepositoryImpl(
 
     override suspend fun getPlayersByTeam(teamId: Int): List<Player> {
         return when (apiProvider.currentApi) {
-
             ApiType.API_FOOTBALL -> {
                 apiProvider.apiFootball
                     .getPlayersByTeam(teamId, season = 2023)
                     .response
                     .map { ApiFootballPlayerMapper.fromListItem(it) }
             }
-
             ApiType.FOOTBALL_DATA -> {
                 apiProvider.footballData
                     .getTeamSquad(teamId)
-                    .squad                       // ← SquadPlayerDto
+                    .squad
                     .map { FootballDataPlayerMapper.fromSquadItem(it) }
             }
-
             else -> emptyList()
         }
     }
 
     override suspend fun getPlayerDetail(playerId: Int): PlayerDetail {
         return when (apiProvider.currentApi) {
-
             ApiType.API_FOOTBALL -> {
                 val item = apiProvider.apiFootball
                     .getPlayerDetail(playerId)
                     .response
                     .first()
-
                 ApiFootballPlayerMapper.toDetail(item)
             }
-
             ApiType.FOOTBALL_DATA -> {
                 val item = apiProvider.footballData
-                    .getPlayer(playerId)          // ← PlayerDto
-
+                    .getPlayer(playerId)
                 FootballDataPlayerMapper.toDetail(item)
             }
-
             else -> throw IllegalStateException("API no soportada")
         }
     }
