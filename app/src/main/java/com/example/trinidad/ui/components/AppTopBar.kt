@@ -35,7 +35,6 @@ fun AppTopBar(
                 .fillMaxWidth()
                 .height(110.dp)
         )
-
         TopAppBar(
             title = {
                 Text(
