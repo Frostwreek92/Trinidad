@@ -120,8 +120,7 @@ fun EquipoDetailScreen(
                             )
                         }
                         is JugadorUiState.Success -> {
-                            val players =
-                                (playersState as JugadorUiState.Success).players
+                            val players = (playersState as JugadorUiState.Success).players
                             players.forEach { player ->
                                 JugadorItem(
                                     nombre = player.name,
