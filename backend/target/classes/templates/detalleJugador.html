@@ -26,15 +26,37 @@
 </nav>
 
 <div class="container">
-    <div class="card shadow-sm text-center">
-        <div class="card-body">
-            <h1 th:text="${jugador.nombreJugador}"></h1>
-            <p><strong>Posición:</strong> <span th:text="${jugador.posicion}"></span></p>
-            <p><strong>Edad:</strong> <span th:text="${jugador.edad}"></span></p>
-
-            <a th:href="@{/jugadores}" class="btn btn-secondary mt-3">
-                Volver
-            </a>
+    <div class="card shadow-sm">
+        <div class="row g-0">
+            <div class="col-md-4 text-center p-3">
+                <img th:src="${jugador.foto != null and !jugador.foto.isEmpty() ? jugador.foto : '/images/default-player.png'}" 
+                     class="img-fluid rounded-circle" 
+                     alt="Foto del jugador"
+                     style="max-width: 200px; max-height: 200px; object-fit: cover;">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h1 class="card-title" th:text="${jugador.nombreJugador}"></h1>
+                    <p class="card-text"><strong>Posición:</strong> <span th:text="${jugador.posicion}"></span></p>
+                    <p class="card-text"><strong>Edad:</strong> <span th:text="${jugador.edad}"></span></p>
+                    <p class="card-text"><strong>Dorsal:</strong> <span th:text="${jugador.dorsal}"></span></p>
+                    <p class="card-text"><strong>Equipo:</strong> 
+                        <span th:if="${relacionJugadorEquipo != null and relacionJugadorEquipo.equipo != null}" 
+                              th:text="${relacionJugadorEquipo.equipo.nombreEquipo}"></span>
+                        <span th:unless="${relacionJugadorEquipo != null and relacionJugadorEquipo.equipo != null}" 
+                              th:text="'Sin equipo asignado'"></span>
+                    </p>
+                    
+                    <div class="mt-3">
+                        <a th:href="@{/jugadores}" class="btn btn-secondary">
+                            Volver
+                        </a>
+                        <a th:href="@{/jugadores/editar/{id}(id=${jugador.idJugador})}" class="btn btn-warning">
+                            Editar
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

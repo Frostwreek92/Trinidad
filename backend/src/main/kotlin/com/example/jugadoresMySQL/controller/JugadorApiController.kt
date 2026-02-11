@@ -90,6 +90,30 @@ class JugadorApiController(
         return ResponseEntity.ok(estadisticas)
     }
 
+    @PostMapping("/update-photos")
+    fun updatePlayerPhotos(): ResponseEntity<Map<String, Any>> {
+        return try {
+            val jugadores = jugadorService.findAll()
+            val updatedJugadores = jugadores.map { jugador ->
+                jugador.copy(foto = "https://via.placeholder.com/40")
+            }
+            val count = jugadorService.saveAll(updatedJugadores).size
+            val successResponse: Map<String, Any> = mapOf(
+                "message" to "Se actualizaron $count jugadores con fotos por defecto",
+                "count" to count,
+                "status" to "success"
+            )
+            ResponseEntity.ok(successResponse)
+        } catch (ex: Exception) {
+            val errorResponse: Map<String, Any> = mapOf(
+                "error" to "Error al actualizar fotos",
+                "message" to (ex.message ?: "Error desconocido"),
+                "status" to "error"
+            )
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse)
+        }
+    }
+
     @PostMapping("/importar")
     fun importarJugadores(@RequestParam("file") file: MultipartFile): ResponseEntity<Map<String, Any>> {
         return try {

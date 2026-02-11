@@ -2,8 +2,10 @@ package com.example.jugadoresMySQL.controller
 
 import com.example.jugadoresMySQL.model.Equipo
 import com.example.jugadoresMySQL.model.JugadorPorEquipo
+import com.example.jugadoresMySQL.service.EquipoPorLigaService
 import com.example.jugadoresMySQL.service.EquipoService
 import com.example.jugadoresMySQL.service.JugadorPorEquipoService
+import com.example.jugadoresMySQL.service.LigaService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/je")
 class JugadorEquipoController(
     private val equipoService: EquipoService,
-    private val jugadorPorEquipoService: JugadorPorEquipoService
+    private val jugadorPorEquipoService: JugadorPorEquipoService,
+    private val equipoPorLigaService: EquipoPorLigaService,
+    private val ligaService: LigaService
 ) {
 
     @GetMapping
@@ -22,15 +26,21 @@ class JugadorEquipoController(
     }
 
     @GetMapping("/equipos-por-liga")
-    fun mostrarEquiposPorLiga(): String = "equiposPorLiga"
+    fun mostrarEquiposPorLiga(model: Model): String {
+        model.addAttribute("ligas", ligaService.findAll())
+        return "equiposPorLiga"
+    }
 
     @PostMapping("/equipos-por-liga")
     fun procesarEquiposPorLiga(
         @RequestParam idLiga: Int,
         model: Model
     ): String {
-        // Por ahora mostramos todos los equipos
-        model.addAttribute("equipos", equipoService.findAll())
+        val relaciones = equipoPorLigaService.findByLiga(idLiga)
+        val equipos = relaciones.map { it.equipo }.filterNotNull()
+        
+        model.addAttribute("equipos", equipos)
+        model.addAttribute("ligas", ligaService.findAll())
         model.addAttribute("idLigaSeleccionada", idLiga)
         return "equiposPorLiga"
     }

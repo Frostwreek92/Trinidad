@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicializar Datos</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        .status-card {
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .btn {
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Gestor</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <h1>Estado Actual de la Base de Datos</h1>
+
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card status-card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Equipos</h5>
+                    <h2 class="text-primary" th:text="${status.equipos}">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card status-card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Jugadores</h5>
+                    <h2 class="text-success" th:text="${status.jugadores}">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card status-card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Ligas</h5>
+                    <h2 class="text-warning" th:text="${status.ligas}">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card status-card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Relaciones</h5>
+                    <h2 class="text-info" th:text="${status.relacionesJE + status.relacionesEL}">0</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Importar Datos de Prueba</h5>
+            <p class="card-text">
+                Esta acción importará datos desde los archivos CSV y creará relaciones automáticamente.
+                Solo se importarán datos si las tablas están vacías.
+            </p>
+            <button onclick="importarDatos()" class="btn btn-primary">
+                Importar Datos
+            </button>
+            <div id="resultado" class="mt-3"></div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a th:href="@{/}" class="btn btn-secondary">Volver al Inicio</a>
+        <a th:href="@{/je/jugadores-por-equipo}" class="btn btn-success ms-2">Jugadores por Equipo</a>
+        <a th:href="@{/je/equipos-por-liga}" class="btn btn-info ms-2">Equipos por Liga</a>
+    </div>
+
+</div>
+
+<script>
+function importarDatos() {
+    const btn = event.target;
+    const resultado = document.getElementById('resultado');
+    
+    btn.disabled = true;
+    btn.innerHTML = 'Importando...';
+    
+    fetch('/init-data/importar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            resultado.innerHTML = `
+                <div class="alert alert-success">
+                    <strong>¡Éxito!</strong> ${data.message}
+                    <br><br>
+                    <strong>Resultados:</strong>
+                    <ul>
+                        ${Object.entries(data.resultados).map(([key, value]) => 
+                            `<li>${key}: ${value}</li>`
+                        ).join('')}
+                    </ul>
+                </div>
+            `;
+            setTimeout(() => location.reload(), 2000);
+        } else {
+            resultado.innerHTML = `
+                <div class="alert alert-danger">
+                    <strong>Error:</strong> ${data.message}
+                </div>
+            `;
+        }
+    })
+    .catch(error => {
+        resultado.innerHTML = `
+            <div class="alert alert-danger">
+                <strong>Error:</strong> ${error.message}
+            </div>
+        `;
+    })
+    .finally(() => {
+        btn.disabled = false;
+        btn.innerHTML = 'Importar Datos';
+    });
+}
+</script>
+
+</body>
+</html>

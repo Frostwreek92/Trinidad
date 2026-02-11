@@ -2,7 +2,7 @@ package com.example.trinidad.ui.screens.ligas
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.trinidad.data.remote.provideFootballApi
+import com.example.trinidad.equipoLegendario.data.remote.provideFootballApi
 import com.example.trinidad.data.repository.LeagueRepositoryImpl
 import com.example.trinidad.data.repository.TeamRepositoryImpl
 import com.example.trinidad.domain.usecase.GetLeaguesUseCase

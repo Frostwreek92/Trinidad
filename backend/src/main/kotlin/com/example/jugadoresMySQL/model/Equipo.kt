@@ -14,7 +14,14 @@ data class Equipo(
     var nombreEquipo: String = "",
 
     @Column(name = "pais_equipo")
-    var paisEquipo: String = ""
+    var paisEquipo: String = "",
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_liga", referencedColumnName = "id_liga")
+    var liga: Liga? = null,
+
+    @Column(name = "foto")
+    var foto: String = ""
 ) {
-    constructor() : this(null, "", "")
+    constructor() : this(null, "", "", null, "")
 }
