@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            border-radius: 8px;
+        }
+        .alert {
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="alert alert-danger text-center shadow-sm">
+        <h1>Jugador no encontrado</h1>
+        <a th:href="@{/jugadores}" class="btn btn-danger mt-3">Volver</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Importar ligas desde CSV</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            border-radius: 8px;
+        }
+        .card {
+            border-radius: 8px;
+        }
+        .pre {
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/ligas}">Ligas</a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h1>Importar ligas desde CSV</h1>
+
+    <div th:if="${mensajeExito}" class="alert alert-success">
+        <span th:text="${mensajeExito}"></span>
+    </div>
+    
+    <div th:if="${mensajeError}" class="alert alert-danger">
+        <span th:text="${mensajeError}"></span>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form th:action="@{/ligas/importar}" method="post">
+                <div class="mb-3">
+                    <p class="text-muted">Se importará el archivo <strong>ligas_ejemplo.csv</strong> de la carpeta data</p>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Importar</button>
+                <a th:href="@{/}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5>Instrucciones</h5>
+            <ul>
+                <li>El archivo debe estar en formato CSV</li>
+                <li>Las columnas deben estar en este orden: nombre, pais</li>
+                <li>Separar los valores con comas (,)</li>
+                <li>La primera fila debe contener los nombres de las columnas</li>
+            </ul>
+            
+            <h6>Ejemplo:</h6>
+            <pre class="bg-light p-2">nombre,pais
+La Liga,España
+Premier League,Inglaterra
+Serie A,Italia</pre>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

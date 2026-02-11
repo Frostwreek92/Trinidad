@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle Jugador</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            border-radius: 8px;
+        }
+        .card {
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/jugadores}">Jugadores</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card shadow-sm">
+        <div class="row g-0">
+            <div class="col-md-4 text-center p-3">
+                <img th:src="${jugador.foto != null and !jugador.foto.isEmpty() ? jugador.foto : '/images/default-player.png'}" 
+                     class="img-fluid rounded-circle" 
+                     alt="Foto del jugador"
+                     style="max-width: 200px; max-height: 200px; object-fit: cover;">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h1 class="card-title" th:text="${jugador.nombreJugador}"></h1>
+                    <p class="card-text"><strong>Posición:</strong> <span th:text="${jugador.posicion}"></span></p>
+                    <p class="card-text"><strong>Edad:</strong> <span th:text="${jugador.edad}"></span></p>
+                    <p class="card-text"><strong>Dorsal:</strong> <span th:text="${jugador.dorsal}"></span></p>
+                    <p class="card-text"><strong>Equipo:</strong> 
+                        <span th:if="${relacionJugadorEquipo != null and relacionJugadorEquipo.equipo != null}" 
+                              th:text="${relacionJugadorEquipo.equipo.nombreEquipo}"></span>
+                        <span th:unless="${relacionJugadorEquipo != null and relacionJugadorEquipo.equipo != null}" 
+                              th:text="'Sin equipo asignado'"></span>
+                    </p>
+                    
+                    <div class="mt-3">
+                        <a th:href="@{/jugadores}" class="btn btn-secondary">
+                            Volver
+                        </a>
+                        <a th:href="@{/jugadores/editar/{id}(id=${jugador.idJugador})}" class="btn btn-warning">
+                            Editar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
