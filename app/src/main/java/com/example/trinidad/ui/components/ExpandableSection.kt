@@ -18,8 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-
-private val DarkGreen = Color(0xFF1B5E20)
+import com.example.trinidad.ui.theme.DarkGreen
 
 @Composable
 fun ExpandableSection(
