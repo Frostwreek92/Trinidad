@@ -1,6 +1,7 @@
 package com.example.trinidad.ui.screens.ligas
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -20,6 +22,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -30,6 +33,7 @@ import coil.request.ImageRequest
 import com.example.trinidad.R
 import com.example.trinidad.ui.components.ExpandableSection
 import com.example.trinidad.ui.components.JugadorItem
+import com.example.trinidad.ui.theme.DarkGreen
 
 @Composable
 fun EquipoDetailScreen(
@@ -80,10 +84,12 @@ fun EquipoDetailScreen(
                             .crossfade(true)
                             .build(),
                         contentDescription = "Escudo del ${team.name}",
-                        placeholder = painterResource(R.drawable.ic_player_placeholder),
-                        error = painterResource(R.drawable.ic_player_placeholder),
+                        placeholder = painterResource(R.drawable.ic_team_placeholder),
+                        error = painterResource(R.drawable.ic_team_placeholder),
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color.White)
                     )
                 }
                 Text(

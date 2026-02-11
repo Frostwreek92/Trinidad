@@ -56,7 +56,6 @@ fun AppNavGraph(navController: NavHostController) {
                 arguments = listOf(navArgument("equipoId") { type = NavType.IntType })
             ) { backStackEntry ->
                 val equipoId = backStackEntry.arguments?.getInt("equipoId") ?: return@composable
-
                 EquipoDetailScreen(
                     equipoId = equipoId,
                     onJugadorClick = { jugadorId ->
@@ -72,15 +71,6 @@ fun AppNavGraph(navController: NavHostController) {
             ) { backStackEntry ->
                 val jugadorId = backStackEntry.arguments?.getInt("jugadorId") ?: return@composable
                 JugadorDetailScreen(jugadorId = jugadorId)
-            }
-            composable(
-                route = "jugador/{jugadorId}",
-                arguments = listOf(navArgument("jugadorId") { type = NavType.IntType })
-            ) { backStackEntry ->
-                val jugadorId =
-                    backStackEntry.arguments?.getInt("jugadorId") ?: return@composable
-
-                JugadorDetailScreen(jugadorId)
             }
             composable(Routes.EquipoLegendario.route) {
                 EquipoLegendarioScreen()

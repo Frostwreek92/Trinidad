@@ -34,7 +34,7 @@ fun LigaCard(
             .padding(12.dp)
     ) {
         ExpandableSection(
-            title = liga.name,
+            title = liga.name + " (" + liga.country + ")",
             onExpand = onExpand
         ) {
             when (teamsState) {
