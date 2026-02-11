@@ -31,7 +31,6 @@ fun LigaCard(
                 color = Color.Black,
                 shape = RoundedCornerShape(8.dp)
             )
-            .padding(12.dp)
     ) {
         ExpandableSection(
             title = liga.name + " (" + liga.country + ")",
