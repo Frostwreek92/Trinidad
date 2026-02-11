@@ -27,7 +27,10 @@ class TeamRepositoryTest {
                 logo = "logo",
                 stadium = "Camp Nou",
                 city = "Barcelona",
-                capacity = 99354
+                capacity = 99354,
+                address = "Adress",
+                surface = "Superficie",
+                stadiumImage = "stadiumImage"
             )
         }
     }

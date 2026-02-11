@@ -29,7 +29,10 @@ class GetTeamDetailUseCaseTest {
             logo = "logo",
             stadium = "Camp Nou",
             city = "Barcelona",
-            capacity = 99354
+            capacity = 99354,
+            address = "direccion",
+            surface = "superficie",
+            stadiumImage = "stadiumImage"
         )
 
         coEvery { repository.getTeamDetail(1) } returns detail
