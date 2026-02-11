@@ -103,7 +103,6 @@ fun EquipoDetailScreen(
                 Text("Capacidad: ${team.capacity}")
                 Text("Dirección: ${team.address}")
                 Text("Superficie: ${team.surface}")
-
                 if (team.stadiumImage.isNotBlank()) {
                     Spacer(Modifier.height(16.dp))
 
@@ -116,7 +115,6 @@ fun EquipoDetailScreen(
                         contentScale = ContentScale.Crop
                     )
                 }
-
                 Spacer(Modifier.height(24.dp))
                 ExpandableSection(
                     title = "Jugadores",

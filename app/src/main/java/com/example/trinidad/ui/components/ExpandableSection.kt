@@ -12,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,8 +26,7 @@ fun ExpandableSection(
     containerColor: Color = DarkGreen,
     content: @Composable () -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
-
+    var expanded by rememberSaveable { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -46,7 +45,6 @@ fun ExpandableSection(
                 style = MaterialTheme.typography.titleMedium,
                 color = Color.White
             )
-
             AnimatedVisibility(visible = expanded) {
                 Column(Modifier.padding(top = 12.dp)) {
                     content()
