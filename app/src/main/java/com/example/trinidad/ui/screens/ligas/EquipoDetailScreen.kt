@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -100,6 +101,22 @@ fun EquipoDetailScreen(
                 Text("Estadio: ${team.stadium}")
                 Text("Ciudad: ${team.city}")
                 Text("Capacidad: ${team.capacity}")
+                Text("Dirección: ${team.address}")
+                Text("Superficie: ${team.surface}")
+
+                if (team.stadiumImage.isNotBlank()) {
+                    Spacer(Modifier.height(16.dp))
+
+                    AsyncImage(
+                        model = team.stadiumImage,
+                        contentDescription = "Imagen del estadio",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+
                 Spacer(Modifier.height(24.dp))
                 ExpandableSection(
                     title = "Jugadores",

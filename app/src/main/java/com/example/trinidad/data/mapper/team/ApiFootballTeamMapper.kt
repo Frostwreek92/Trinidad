@@ -21,7 +21,10 @@ object ApiFootballTeamMapper {
             logo = item.team.logo ?: "",
             stadium = item.venue?.name ?: "",
             city = item.venue?.city ?: "",
-            capacity = item.venue?.capacity ?: 0
+            capacity = item.venue?.capacity ?: 0,
+            address = item.venue?.address ?: "",
+            surface = item.venue?.surface ?: "",
+            stadiumImage = item.venue?.image ?: ""
         )
     }
 }

@@ -20,6 +20,9 @@ object FootballDataTeamMapper {
             logo = team.crest ?: "",
             stadium = team.venue ?: "Desconocido",
             city = team.area?.name ?: "Desconocido",
-            capacity = 0
+            capacity = 0,
+            address = "",
+            surface = "",
+            stadiumImage = ""
         )
 }

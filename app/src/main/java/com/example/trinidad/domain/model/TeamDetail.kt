@@ -6,5 +6,9 @@ data class TeamDetail(
     val logo: String,
     val stadium: String,
     val city: String,
-    val capacity: Int
+    val capacity: Int,
+    val address: String,
+    val surface: String,
+    val stadiumImage: String
 )
+

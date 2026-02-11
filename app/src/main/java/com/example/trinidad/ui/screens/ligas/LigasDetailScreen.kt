@@ -40,7 +40,7 @@ fun LigasDetailScreen(
             onQueryChange = {
                 searchQuery = it
             },
-            placeholder = "Buscar liga..."
+            placeholder = "Buscar país..."
         )
         Spacer(modifier = Modifier.height(16.dp))
         val ligasState by viewModel.ligasState.collectAsState()
