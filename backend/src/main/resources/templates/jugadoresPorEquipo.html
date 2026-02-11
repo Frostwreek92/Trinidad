@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Jugadores por equipo</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        .form-select {
+            border-radius: 8px;
+        }
+        .btn {
+            border-radius: 8px;
+        }
+        .table {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Gestor</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <h1>Jugadores por equipo</h1>
+
+    <form th:action="@{/je/jugadores-por-equipo}" method="post" class="row g-3 mb-4">
+
+        <div class="col-md-6">
+            <label class="form-label">Equipo</label>
+            <select name="idEquipo" class="form-select" required>
+                <option value="">-- Selecciona equipo --</option>
+                <option th:each="e : ${equipos}"
+                        th:value="${e.idEquipo}"
+                        th:text="${e.nombreEquipo}"
+                        th:selected="${e.idEquipo == idEquipoSeleccionado}">
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-6 align-self-end">
+            <button type="submit" class="btn btn-success">
+                Mostrar jugadores
+            </button>
+        </div>
+    </form>
+
+    <table class="table table-striped" th:if="${relaciones != null}">
+        <thead>
+        <tr>
+            <th>Jugador</th>
+            <th>Dorsal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="je : ${relaciones}">
+            <td th:text="${je.jugador.nombreJugador}">Jugador</td>
+            <td th:text="${je.dorsal}">10</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/}" class="btn btn-secondary mt-3">Volver</a>
+
+</div>
+</body>
+</html>

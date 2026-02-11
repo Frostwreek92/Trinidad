@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}">Formulario Jugador</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            border-radius: 8px;
+        }
+        .card {
+            border-radius: 8px;
+        }
+        .form-control {
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/jugadores}">Jugadores</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h1 th:text="${titulo}"></h1>
+
+            <form th:action="@{/jugadores/guardar}" th:object="${jugador}" method="post">
+                <input type="hidden" th:field="*{idJugador}"/>
+
+                <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input class="form-control" th:field="*{nombreJugador}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Posición</label>
+                    <input class="form-control" th:field="*{posicion}">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Edad</label>
+                    <input type="number" class="form-control" th:field="*{edad}">
+                </div>
+
+                <button class="btn btn-primary">Guardar</button>
+                <a th:href="@{/jugadores}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

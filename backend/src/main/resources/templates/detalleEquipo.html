@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle Equipo</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            border-radius: 8px;
+        }
+        .card {
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/equipos}">Equipos</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card shadow-sm">
+        <div class="row g-0">
+            <div class="col-md-4 text-center p-3">
+                <img th:src="${equipo.foto != null and !equipo.foto.isEmpty() ? equipo.foto : '/images/default-team.png'}" 
+                     class="img-fluid rounded" 
+                     alt="Foto del equipo"
+                     style="max-width: 200px; max-height: 200px; object-fit: cover;">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h1 class="card-title" th:text="${equipo.nombreEquipo}"></h1>
+                    <p class="card-text"><strong>País:</strong> <span th:text="${equipo.paisEquipo}"></span></p>
+                    
+                    <div class="mt-3">
+                        <a th:href="@{/equipos}" class="btn btn-secondary">
+                            Volver
+                        </a>
+                        <a th:href="@{/equipos/editar/{id}(id=${equipo.idEquipo})}" class="btn btn-warning">
+                            Editar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

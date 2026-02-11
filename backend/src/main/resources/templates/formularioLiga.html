@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}">Formulario Liga</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            border-radius: 8px;
+        }
+        .card {
+            border-radius: 8px;
+        }
+        .form-control {
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/ligas}">Ligas</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h1 th:text="${titulo}"></h1>
+
+            <form th:action="@{/ligas/guardar}" th:object="${liga}" method="post">
+                <input type="hidden" th:field="*{idLiga}"/>
+
+                <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input class="form-control" th:field="*{nombreLiga}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">País</label>
+                    <input class="form-control" th:field="*{paisLiga}">
+                </div>
+
+                <button class="btn btn-primary">Guardar</button>
+                <a th:href="@{/ligas}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

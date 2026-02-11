@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestor</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        .btn {
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .card {
+            border-radius: 8px;
+        }
+        .btn-jugador {
+            background-color: #17a2b8 !important;
+            border-color: #17a2b8 !important;
+            color: #fff !important;
+        }
+        .btn-jugador:hover {
+            background-color: #138496 !important;
+            border-color: #117a8b !important;
+            color: #fff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .btn-jugador:active {
+            background-color: #17a2b8 !important;
+            border-color: #17a2b8 !important;
+            color: #fff !important;
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Gestor</a>
+    </div>
+</nav>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-primary text-white">
+                    <h1 class="h4 mb-0">Opciones</h1>
+                </div>
+
+                <div class="card-body">
+                    <div class="d-grid gap-3">
+                        <!-- Importar CSV -->
+                        <a th:href="@{/jugadores/importar}" class="btn btn-outline-info btn-lg">
+                            Importar CSV de Jugadores
+                        </a>
+
+                        <!-- Importar Ligas -->
+                        <a th:href="@{/ligas/importar}" class="btn btn-outline-primary btn-lg">
+                            Importar CSV de Ligas
+                        </a>
+
+                        <!-- Importar Equipos -->
+                        <a th:href="@{/equipos/importar}" class="btn btn-outline-success btn-lg">
+                            Importar CSV de Equipos
+                        </a>
+
+                        <!-- Ligas -->
+                        <a th:href="@{/ligas}" class="btn btn-primary btn-lg">
+                            CRUD de Ligas
+                        </a>
+
+                        <!-- Equipos -->
+                        <a th:href="@{/equipos}" class="btn btn-success btn-lg">
+                            CRUD de Equipos
+                        </a>
+
+                        <!-- Jugadores -->
+                        <a th:href="@{/jugadores}" class="btn btn-jugador btn-lg">
+                            CRUD de Jugadores
+                        </a>
+
+                        <!-- Relaciones -->
+                        <a th:href="@{/je}" class="btn btn-warning btn-lg">
+                            Jugadores por Equipo
+                        </a>
+
+                        <!-- Equipos por Liga -->
+                        <a th:href="@{/je/equipos-por-liga}" class="btn btn-secondary btn-lg">
+                            Equipos por Liga
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

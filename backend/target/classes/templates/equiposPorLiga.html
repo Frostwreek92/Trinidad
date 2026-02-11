@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Equipos por liga</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        .form-select {
+            border-radius: 8px;
+        }
+        .btn {
+            border-radius: 8px;
+        }
+        .table {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Gestor</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <h1>Equipos por liga</h1>
+
+    <form th:action="@{/je/equipos-por-liga}" method="post" class="row g-3 mb-4">
+
+        <div class="col-md-6">
+            <label class="form-label">Liga</label>
+            <select name="idLiga" class="form-select" required>
+                <option value="">-- Selecciona liga --</option>
+                <option th:each="l : ${ligas}"
+                        th:value="${l.idLiga}"
+                        th:text="${l.nombreLiga}"
+                        th:selected="${l.idLiga == idLigaSeleccionada}">
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-6 align-self-end">
+            <button type="submit" class="btn btn-success">
+                Mostrar equipos
+            </button>
+        </div>
+    </form>
+
+    <table class="table table-striped" th:if="${equipos != null}">
+        <thead>
+        <tr>
+            <th>Equipo</th>
+            <th>País</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="e : ${equipos}">
+            <td th:text="${e.nombreEquipo}">Equipo</td>
+            <td th:text="${e.paisEquipo}">País</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/}" class="btn btn-secondary mt-3">Volver</a>
+
+</div>
+
+</body>
+</html>

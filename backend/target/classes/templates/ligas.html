@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ligas</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            border-radius: 8px;
+        }
+        .table {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Gestor de Ligas</a>
+    </div>
+</nav>
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between mb-3">
+        <h1>Ligas</h1>
+        <a th:href="@{/ligas/nuevo}" class="btn btn-primary">Nueva Liga</a>
+    </div>
+
+    <table class="table table-striped shadow-sm">
+        <thead class="table-primary">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>País</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="liga : ${ligas}">
+            <td th:text="${liga.idLiga}"></td>
+            <td th:text="${liga.nombreLiga}"></td>
+            <td th:text="${liga.paisLiga}"></td>
+            <td class="text-center">
+                <a th:href="@{/ligas/{id}(id=${liga.idLiga})}"
+                   class="btn btn-primary btn-sm">Detalles</a>
+                <a th:href="@{/ligas/editar/{id}(id=${liga.idLiga})}"
+                   class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/ligas/borrar/{id}(id=${liga.idLiga})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('¿Borrar liga?')">Borrar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p class="text-muted" th:if="${ligas.size() == 0}">
+        No hay ligas registradas.
+    </p>
+</div>
+
+</body>
+</html>

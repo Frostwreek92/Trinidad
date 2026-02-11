@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Equipos</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <style>
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            border-radius: 8px;
+        }
+        .table {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Gestor de Equipos</a>
+    </div>
+</nav>
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between mb-3">
+        <h1>Equipos</h1>
+        <a th:href="@{/equipos/nuevo}" class="btn btn-primary">Nuevo Equipo</a>
+    </div>
+
+    <table class="table table-striped shadow-sm">
+        <thead class="table-primary">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>País</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="equipo : ${equipos}">
+            <td th:text="${equipo.idEquipo}"></td>
+            <td th:text="${equipo.nombreEquipo}"></td>
+            <td th:text="${equipo.paisEquipo}"></td>
+            <td class="text-center">
+                <a th:href="@{/equipos/{id}(id=${equipo.idEquipo})}"
+                   class="btn btn-primary btn-sm">Detalles</a>
+                <a th:href="@{/equipos/editar/{id}(id=${equipo.idEquipo})}"
+                   class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/equipos/borrar/{id}(id=${equipo.idEquipo})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('¿Borrar equipo?')">Borrar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p class="text-muted" th:if="${equipos.size() == 0}">
+        No hay equipos registrados.
+    </p>
+</div>
+
+</body>
+</html>
