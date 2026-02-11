@@ -1,6 +1,6 @@
 package com.example.trinidad.ui.screens.ligas
 
-import com.example.trinidad.domain.model.Player
+import com.example.trinidad.domain.model.api.Player
 
 sealed class JugadorUiState {
     object Idle : JugadorUiState()

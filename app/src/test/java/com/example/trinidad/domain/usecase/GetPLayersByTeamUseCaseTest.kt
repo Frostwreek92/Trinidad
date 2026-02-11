@@ -1,7 +1,8 @@
 package com.example.trinidad.domain.usecase
 
-import com.example.trinidad.domain.model.Player
-import com.example.trinidad.domain.repository.PlayerRepository
+import com.example.trinidad.domain.model.api.Player
+import com.example.trinidad.domain.repository.api.PlayerRepository
+import com.example.trinidad.domain.usecase.api.GetPlayersByTeamUseCase
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.coVerify

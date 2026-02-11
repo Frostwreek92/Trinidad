@@ -1,6 +1,6 @@
-package com.example.trinidad.domain.usecase
+package com.example.trinidad.domain.usecase.api
 
-import com.example.trinidad.domain.repository.TeamRepository
+import com.example.trinidad.domain.repository.api.TeamRepository
 
 class GetTeamsByLeagueUseCase(
     private val repository: TeamRepository

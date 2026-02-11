@@ -1,4 +1,4 @@
-package com.example.trinidad.domain.model
+package com.example.trinidad.domain.model.api
 
 data class League(
     val id: Int,

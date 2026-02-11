@@ -1,7 +1,8 @@
 package com.example.trinidad.domain.usecase
 
-import com.example.trinidad.domain.model.League
-import com.example.trinidad.domain.repository.LeagueRepository
+import com.example.trinidad.domain.model.api.League
+import com.example.trinidad.domain.repository.api.LeagueRepository
+import com.example.trinidad.domain.usecase.api.GetLeaguesUseCase
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.coVerify

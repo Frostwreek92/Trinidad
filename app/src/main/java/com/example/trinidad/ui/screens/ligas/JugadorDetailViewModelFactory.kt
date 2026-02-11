@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.trinidad.data.remote.ApiProvider
 import com.example.trinidad.data.repository.PlayerRepositoryImpl
-import com.example.trinidad.domain.usecase.GetPlayerDetailUseCase
+import com.example.trinidad.domain.usecase.api.GetPlayerDetailUseCase
 
 class JugadorDetailViewModelFactory(
     private val playerId: Int

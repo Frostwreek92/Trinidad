@@ -1,7 +1,7 @@
-package com.example.trinidad.domain.usecase
+package com.example.trinidad.domain.usecase.api
 
-import com.example.trinidad.domain.model.PlayerDetail
-import com.example.trinidad.domain.repository.PlayerRepository
+import com.example.trinidad.domain.model.api.PlayerDetail
+import com.example.trinidad.domain.repository.api.PlayerRepository
 
 class GetPlayerDetailUseCase(
     private val repository: PlayerRepository

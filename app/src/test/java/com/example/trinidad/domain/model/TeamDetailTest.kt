@@ -1,5 +1,6 @@
 package com.example.trinidad.domain.model
 
+import com.example.trinidad.domain.model.api.TeamDetail
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 

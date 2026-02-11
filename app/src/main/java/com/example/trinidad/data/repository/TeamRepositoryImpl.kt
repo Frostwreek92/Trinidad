@@ -4,9 +4,9 @@ import com.example.trinidad.data.mapper.team.ApiFootballTeamMapper
 import com.example.trinidad.data.mapper.team.FootballDataTeamMapper
 import com.example.trinidad.data.remote.ApiProvider
 import com.example.trinidad.data.remote.ApiType
-import com.example.trinidad.domain.model.Team
-import com.example.trinidad.domain.model.TeamDetail
-import com.example.trinidad.domain.repository.TeamRepository
+import com.example.trinidad.domain.model.api.Team
+import com.example.trinidad.domain.model.api.TeamDetail
+import com.example.trinidad.domain.repository.api.TeamRepository
 
 class TeamRepositoryImpl(
     private val apiProvider: ApiProvider

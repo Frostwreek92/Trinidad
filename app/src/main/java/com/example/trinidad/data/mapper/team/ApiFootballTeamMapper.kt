@@ -1,8 +1,8 @@
 package com.example.trinidad.data.mapper.team
 
 import com.example.trinidad.data.remote.dto.apifootball.TeamResponseItemDto
-import com.example.trinidad.domain.model.Team
-import com.example.trinidad.domain.model.TeamDetail
+import com.example.trinidad.domain.model.api.Team
+import com.example.trinidad.domain.model.api.TeamDetail
 
 object ApiFootballTeamMapper {
 

@@ -1,7 +1,8 @@
 package com.example.trinidad.domain.repository
 
-import com.example.trinidad.domain.model.Team
-import com.example.trinidad.domain.model.TeamDetail
+import com.example.trinidad.domain.model.api.Team
+import com.example.trinidad.domain.model.api.TeamDetail
+import com.example.trinidad.domain.repository.api.TeamRepository
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
 import org.junit.Test

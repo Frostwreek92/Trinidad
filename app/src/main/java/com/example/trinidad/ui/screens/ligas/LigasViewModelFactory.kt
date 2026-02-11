@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.trinidad.data.remote.ApiProvider
 import com.example.trinidad.data.repository.LeagueRepositoryImpl
 import com.example.trinidad.data.repository.TeamRepositoryImpl
-import com.example.trinidad.domain.usecase.GetLeaguesUseCase
-import com.example.trinidad.domain.usecase.GetTeamsByLeagueUseCase
+import com.example.trinidad.domain.usecase.api.GetLeaguesUseCase
+import com.example.trinidad.domain.usecase.api.GetTeamsByLeagueUseCase
 
 class LigasViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

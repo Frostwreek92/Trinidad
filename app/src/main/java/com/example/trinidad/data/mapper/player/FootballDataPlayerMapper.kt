@@ -2,8 +2,8 @@ package com.example.trinidad.data.mapper.player
 
 import com.example.trinidad.data.remote.dto.footballdata.PlayerDto
 import com.example.trinidad.data.remote.dto.footballdata.SquadPlayerDto
-import com.example.trinidad.domain.model.Player
-import com.example.trinidad.domain.model.PlayerDetail
+import com.example.trinidad.domain.model.api.Player
+import com.example.trinidad.domain.model.api.PlayerDetail
 
 object FootballDataPlayerMapper {
 

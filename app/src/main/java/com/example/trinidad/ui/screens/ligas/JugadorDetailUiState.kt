@@ -1,6 +1,6 @@
 package com.example.trinidad.ui.screens.ligas
 
-import com.example.trinidad.domain.model.PlayerDetail
+import com.example.trinidad.domain.model.api.PlayerDetail
 
 sealed class JugadorDetailUiState {
     object Loading : JugadorDetailUiState()

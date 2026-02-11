@@ -4,8 +4,8 @@ import com.example.trinidad.data.mapper.league.ApiFootballLeagueMapper
 import com.example.trinidad.data.mapper.league.FootballDataLeagueMapper
 import com.example.trinidad.data.remote.ApiProvider
 import com.example.trinidad.data.remote.ApiType
-import com.example.trinidad.domain.model.League
-import com.example.trinidad.domain.repository.LeagueRepository
+import com.example.trinidad.domain.model.api.League
+import com.example.trinidad.domain.repository.api.LeagueRepository
 
 class LeagueRepositoryImpl(
     private val apiProvider: ApiProvider

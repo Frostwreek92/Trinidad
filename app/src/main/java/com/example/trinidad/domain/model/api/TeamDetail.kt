@@ -1,4 +1,4 @@
-package com.example.trinidad.domain.model
+package com.example.trinidad.domain.model.api
 
 data class TeamDetail(
     val id: Int,
@@ -11,4 +11,3 @@ data class TeamDetail(
     val surface: String,
     val stadiumImage: String
 )
-

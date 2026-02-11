@@ -1,7 +1,7 @@
 package com.example.trinidad.data.mapper.league
 
 import com.example.trinidad.data.remote.dto.apifootball.LeagueDto
-import com.example.trinidad.domain.model.League
+import com.example.trinidad.domain.model.api.League
 
 object ApiFootballLeagueMapper {
 

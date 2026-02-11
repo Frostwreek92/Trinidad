@@ -2,8 +2,8 @@ package com.example.trinidad.ui.screens.ligas
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.trinidad.domain.usecase.GetLeaguesUseCase
-import com.example.trinidad.domain.usecase.GetTeamsByLeagueUseCase
+import com.example.trinidad.domain.usecase.api.GetLeaguesUseCase
+import com.example.trinidad.domain.usecase.api.GetTeamsByLeagueUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

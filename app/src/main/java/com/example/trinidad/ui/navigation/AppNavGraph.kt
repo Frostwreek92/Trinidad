@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.trinidad.ui.components.AppTopBar
 import com.example.trinidad.ui.screens.equipoLegendario.EquipoLegendarioScreen
+import com.example.trinidad.ui.screens.equipoLegendario.FormacionScreen
 import com.example.trinidad.ui.screens.home.HomeScreen
 import com.example.trinidad.ui.screens.ligas.EquipoDetailScreen
 import com.example.trinidad.ui.screens.ligas.JugadorDetailScreen
@@ -73,7 +74,32 @@ fun AppNavGraph(navController: NavHostController) {
                 JugadorDetailScreen(jugadorId = jugadorId)
             }
             composable(Routes.EquipoLegendario.route) {
-                EquipoLegendarioScreen()
+                EquipoLegendarioScreen(
+                    onNavigateToFormacionCreator = {
+                        navController.navigate("formacion_creator")
+                    },
+                    onNavigateToFormacionEditor = {
+                        navController.navigate("formacion_editor")
+                    }
+                )
+            }
+
+            composable("formacion_creator") {
+                FormacionScreen(
+                    isEditing = false,
+                    onSaveComplete = {
+                        navController.popBackStack()
+                    },
+                )
+            }
+
+            composable("formacion_editor") {
+                FormacionScreen(
+                    isEditing = true,
+                    onSaveComplete = {
+                        navController.popBackStack()
+                    },
+                )
             }
         }
     }
