@@ -68,7 +68,7 @@ class EquipoLegendarioViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val success = repositoryImpl.deleteFormacion()
-                if (success) {
+                if (!success) {
                     _uiState.value = _uiState.value.copy(
                         hasFormacion = false,
                         message = "Formación eliminada correctamente del servidor"

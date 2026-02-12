@@ -3,9 +3,9 @@ package com.example.trinidad.data.mapper.local
 import com.example.trinidad.data.remote.local.FormacionDto
 import com.example.trinidad.data.remote.local.JugadorEnPosicionDto
 import com.example.trinidad.domain.model.api.Player
+import com.example.trinidad.data.remote.local.BackendJugadorDto
 import com.example.trinidad.domain.model.local.Formacion
 import com.example.trinidad.domain.model.local.JugadorEnPosicion
-import com.example.trinidad.data.remote.local.BackendJugadorDto
 
 object FormacionMapper {
     

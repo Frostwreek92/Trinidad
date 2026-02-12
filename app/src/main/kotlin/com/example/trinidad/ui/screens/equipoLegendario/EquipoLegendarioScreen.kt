@@ -193,8 +193,6 @@ fun EquipoLegendarioScreen(
             }
         }
         
-        Spacer(modifier = Modifier.height(32.dp))
-        
         // LazyRow de Jugadores
         Card(
             modifier = Modifier.fillMaxWidth(),
