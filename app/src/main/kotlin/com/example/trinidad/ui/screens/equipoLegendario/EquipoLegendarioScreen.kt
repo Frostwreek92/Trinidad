@@ -23,6 +23,7 @@ import androidx.compose.foundation.lazy.items
 @Composable
 fun EquipoLegendarioScreen(
     onNavigateToFormacionCreator: () -> Unit,
+    onNavigateToFormacionViewer: () -> Unit,
     onNavigateToFormacionEditor: () -> Unit,
     viewModel: EquipoLegendarioViewModel = hiltViewModel()
 ) {
@@ -90,8 +91,6 @@ fun EquipoLegendarioScreen(
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         
-        Spacer(modifier = Modifier.height(32.dp))
-        
         // Botón Nuevo
         Button(
             onClick = {
@@ -114,7 +113,30 @@ fun EquipoLegendarioScreen(
                 fontWeight = FontWeight.Medium
             )
         }
-        
+
+        // Botón Ver Formación
+        Button(
+            onClick = {
+                if (uiState.hasFormacion) {
+                    onNavigateToFormacionViewer()
+                } else {
+                    viewModel.showCannotViewMessage()
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.tertiary
+            )
+        ) {
+            Text(
+                text = "Ver Formación",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Medium
+            )
+        }
+
         // Botón Modificar
         Button(
             onClick = {
@@ -161,8 +183,6 @@ fun EquipoLegendarioScreen(
                 color = Color.White
             )
         }
-        
-        Spacer(modifier = Modifier.height(32.dp))
         
         // Estado actual
         Card(

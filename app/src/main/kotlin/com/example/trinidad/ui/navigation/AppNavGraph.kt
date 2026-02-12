@@ -11,6 +11,7 @@ import androidx.navigation.navArgument
 import com.example.trinidad.ui.components.AppTopBar
 import com.example.trinidad.ui.screens.equipoLegendario.EquipoLegendarioScreen
 import com.example.trinidad.ui.screens.equipoLegendario.FormacionScreen
+import com.example.trinidad.ui.screens.equipoLegendario.FormacionViewerScreen
 import com.example.trinidad.ui.screens.home.HomeScreen
 import com.example.trinidad.ui.screens.ligas.EquipoDetailScreen
 import com.example.trinidad.ui.screens.ligas.JugadorDetailScreen
@@ -78,6 +79,9 @@ fun AppNavGraph(navController: NavHostController) {
                     onNavigateToFormacionCreator = {
                         navController.navigate("formacion_creator")
                     },
+                    onNavigateToFormacionViewer = {
+                        navController.navigate("formacion_viewer")
+                    },
                     onNavigateToFormacionEditor = {
                         navController.navigate("formacion_editor")
                     }
@@ -90,6 +94,12 @@ fun AppNavGraph(navController: NavHostController) {
                     onSaveComplete = {
                         navController.popBackStack()
                     },
+                )
+            }
+
+            composable("formacion_viewer") {
+                FormacionViewerScreen(
+                    onBack = { navController.popBackStack() }
                 )
             }
 

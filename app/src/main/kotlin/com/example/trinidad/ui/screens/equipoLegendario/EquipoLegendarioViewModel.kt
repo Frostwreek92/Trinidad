@@ -92,6 +92,12 @@ class EquipoLegendarioViewModel @Inject constructor(
         )
     }
 
+    fun showCannotViewMessage() {
+        _uiState.value = _uiState.value.copy(
+            message = "No se puede ver. No tienes ninguna formación guardada"
+        )
+    }
+
     fun showCannotModifyMessage() {
         _uiState.value = _uiState.value.copy(
             message = "No se puede modificar. No tienes ninguna formación guardada"
