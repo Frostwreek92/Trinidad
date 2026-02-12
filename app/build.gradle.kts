@@ -107,13 +107,60 @@ dependencies {
     // TEST
     // ---------------------------
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation("io.mockk:mockk:1.14.9")
     testImplementation("com.google.truth:truth:1.4.5")
-    testImplementation("com.squareup.okhttp3:mockwebserver:5.3.2")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.0")
 
     androidTestImplementation(platform("androidx.compose:compose-bom:2024.06.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+
+    constraints {
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core") {
+            version {
+                strictly("1.7.3")
+            }
+        }
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android") {
+            version {
+                strictly("1.7.3")
+            }
+        }
+        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test") {
+            version {
+                strictly("1.7.3")
+            }
+        }
+    }
+
+}
+
+configurations.all {
+    resolutionStrategy {
+        force("org.jetbrains.kotlin:kotlin-stdlib:1.9.24")
+        force("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.24")
+        force("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.24")
+
+        force("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+        force("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+        force("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    }
+}
+
+configurations.configureEach {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "org.jetbrains.kotlinx" &&
+            requested.name.startsWith("kotlinx-coroutines")
+        ) {
+            useVersion("1.7.3")
+        }
+
+        if (requested.group == "org.jetbrains.kotlin" &&
+            requested.name.startsWith("kotlin-stdlib")
+        ) {
+            useVersion("1.9.24") // pon tu versión real
+        }
+    }
 }
