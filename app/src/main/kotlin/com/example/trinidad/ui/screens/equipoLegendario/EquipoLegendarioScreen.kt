@@ -90,7 +90,8 @@ fun EquipoLegendarioScreen(
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
-        
+
+
         // Botón Nuevo
         Button(
             onClick = {
