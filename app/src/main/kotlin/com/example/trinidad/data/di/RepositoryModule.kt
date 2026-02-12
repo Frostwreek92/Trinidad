@@ -1,7 +1,7 @@
-package com.example.trinidad.domain.repository
+package com.example.trinidad.data.di
 
-import com.example.trinidad.data.repository.EquipoLegendarioRepositoryImpl
 import com.example.trinidad.domain.repository.local.EquipoLegendarioRepository
+import com.example.trinidad.data.repository.EquipoLegendarioRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
