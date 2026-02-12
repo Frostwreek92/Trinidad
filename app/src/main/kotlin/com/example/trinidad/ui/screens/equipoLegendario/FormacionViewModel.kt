@@ -60,12 +60,12 @@ class FormacionViewModel @Inject constructor(
                         }
                         defaultPos.copy(jugador = jugadorEnPosicion?.jugador)
                     }
+
+                    val placedPlayerIds = positions.mapNotNull { it.jugador?.id }.toSet()
                     
                     _uiState.value = _uiState.value.copy(
                         positions = positions,
-                        availablePlayers = jugadores.filter { player ->
-                            !formacion.jugadores.any { it.jugador.id == player.id }
-                        },
+                        availablePlayers = jugadores.filter { player -> player.id !in placedPlayerIds },
                         currentFormacion = formacion,
                         isLoading = false
                     )
@@ -84,6 +84,10 @@ class FormacionViewModel @Inject constructor(
     fun selectPlayer(player: Player) {
         val currentPosition = _uiState.value.selectedPosition
         if (currentPosition != null) {
+            val previousPlayer = _uiState.value.positions
+                .firstOrNull { it.posicion == currentPosition.posicion }
+                ?.jugador
+
             val updatedPositions = _uiState.value.positions.map { position ->
                 if (position.posicion == currentPosition.posicion) {
                     position.copy(jugador = player)
@@ -92,7 +96,12 @@ class FormacionViewModel @Inject constructor(
                 }
             }
             
-            val updatedAvailablePlayers = _uiState.value.availablePlayers.filter { it.id != player.id }
+            val updatedAvailablePlayers = buildList<Player> {
+                addAll(_uiState.value.availablePlayers.filter { it.id != player.id })
+                if (previousPlayer != null && previousPlayer.id != player.id && none { it.id == previousPlayer.id }) {
+                    add(previousPlayer)
+                }
+            }
             
             _uiState.value = _uiState.value.copy(
                 positions = updatedPositions,
@@ -146,24 +155,21 @@ class FormacionViewModel @Inject constructor(
     }
 
     fun assignPlayerToPosition(player: Player, position: PosicionFormacion) {
+        val previousPlayer = _uiState.value.positions
+            .firstOrNull { it.posicion == position.posicion }
+            ?.jugador
+
         val updatedPositions = _uiState.value.positions.map { pos ->
-            if (pos.posicion == position.posicion) {
-                // If position is occupied, return the previous player to available players
-                pos.jugador?.let { previousPlayer ->
-                    val currentAvailablePlayers = _uiState.value.availablePlayers.toMutableList()
-                    if (!currentAvailablePlayers.any { it.id == previousPlayer.id }) {
-                        currentAvailablePlayers.add(previousPlayer)
-                    }
-                    _uiState.value = _uiState.value.copy(availablePlayers = currentAvailablePlayers)
-                }
-                pos.copy(jugador = player)
-            } else {
-                pos
+            if (pos.posicion == position.posicion) pos.copy(jugador = player) else pos
+        }
+
+        val updatedAvailablePlayers = buildList<Player> {
+            addAll(_uiState.value.availablePlayers.filter { it.id != player.id })
+            if (previousPlayer != null && previousPlayer.id != player.id && none { it.id == previousPlayer.id }) {
+                add(previousPlayer)
             }
         }
-        
-        val updatedAvailablePlayers = _uiState.value.availablePlayers.filter { it.id != player.id }
-        
+
         _uiState.value = _uiState.value.copy(
             positions = updatedPositions,
             availablePlayers = updatedAvailablePlayers

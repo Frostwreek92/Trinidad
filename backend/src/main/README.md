@@ -10,7 +10,7 @@ Incluye:
 - Importación de datos de ejemplo desde ficheros CSV.
 
 ## Requisitos
-- **Java JDK 21**
+- **Java JDK 21 para Springboot**
 - **Maven**
 - **MySQL Server** (local o remoto)
 

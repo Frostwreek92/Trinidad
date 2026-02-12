@@ -1,6 +1,7 @@
 package com.example.jugadoresMySQL.service
 
 import com.example.jugadoresMySQL.model.Formacion
+import com.example.jugadoresMySQL.repository.JugadorEnPosicionRepository
 import com.example.jugadoresMySQL.repository.FormacionRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -9,7 +10,8 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class FormacionService(
     private val formacionRepository: FormacionRepository,
-    private val jugadorService: JugadorService
+    private val jugadorService: JugadorService,
+    private val jugadorEnPosicionRepository: JugadorEnPosicionRepository
 ) {
 
     fun findAll(): List<Formacion> {
@@ -22,6 +24,14 @@ class FormacionService(
     }
 
     fun save(formacion: Formacion): Formacion {
+        if (formacion.idFormacion != null) {
+            val existingFormacion = formacionRepository.findById(formacion.idFormacion!!).orElse(null)
+            if (existingFormacion != null) {
+                jugadorEnPosicionRepository.deleteByFormacion(existingFormacion)
+                jugadorEnPosicionRepository.flush()
+            }
+        }
+
         // Asociar los jugadores con la formación
         formacion.jugadores.forEach { jugadorEnPosicion ->
             jugadorEnPosicion.formacion = formacion

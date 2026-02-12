@@ -73,9 +73,11 @@ class FormacionController(
     @PostMapping
     fun saveFormacionLegendaria(@RequestBody request: FormacionRequest): ResponseEntity<FormacionResponse> {
         return try {
+            val targetId = request.id ?: formacionService.getLatestFormacion()?.idFormacion
+
             // Crear la formación
             val formacion = Formacion(
-                idFormacion = request.id,
+                idFormacion = targetId,
                 esquema = request.esquema
             )
 
