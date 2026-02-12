@@ -1,0 +1,120 @@
+Tengo la siguiente estructura de proyecto, tengo que remodelarla:
+
+trinidad
+    ├── data
+    |   ├── di
+    |   |   ├── ApiFootballNetworkModule.kt
+    |   |   ├── NetworkProvider.kt
+    |   |   └── SportMonkNetworkModule.kt
+    |   |
+    |   ├── mapper
+    |   |   ├── LeagueMapper.kt
+    |   |   ├── PlayerDetailMapper.kt
+    |   |   ├── PlayerMapper.kt
+    |   |   ├── SportMonksLeagueMapper.kt
+    |   |   ├── SportMonksPlayerMapper.kt
+    |   |   ├── SportMonksTeamMapper.kt
+    |   |   ├── TeamDetailMapper.kt
+    |   |   └── TeamMapper.kt
+    |   |
+    |   ├── remote
+    |   |   ├── dto
+    |   |   |   ├── LeaguesResponseDto.kt
+    |   |   |   ├── PlayersResponseDto.kt
+    |   |   |   ├── TeamDetailResponseDto.kt
+    |   |   |   ├── TeamInfoDto.kt
+    |   |   |   └── TeamsResponseDto.kt
+    |   |   |
+    |   |   ├── footballapi
+    |   |   |   └── FootballApi
+    |   |   |
+    |   |   ├── sportmonks
+    |   |   |   ├── dto
+    |   |   |   |   ├── SportMonksLeaguesResponseDto.kt
+    |   |   |   |   ├── SportMonksPlayersResponseDto.kt
+    |   |   |   |   └── SportMonksTeamsResponseDto.kt
+    |   |   |   |
+    |   |   |   └── SportMonksApi.kt
+    |   |   |
+    |   |   └── NetworkModule.kt
+    |   |
+    |   ├── repository
+    |   |   ├── FootballRepositoryImpl.kt
+    |   |   ├── LeagueRepositoryImpl.kt
+    |   |   ├── PlayerRepositoryImpl.kt
+    |   |   └── TeamRepositoryImpl.kt
+    |   |
+    |   └── source
+    |       ├── ApiFootballDataSource.kt
+    |       ├── DataSourceType.kt
+    |       ├── FootballDataSourceFactory.kt
+    |       └── SportMonksDataSource.kt
+    |
+    ├── domain
+    |   ├── datasource
+    |   |   └── FootballDataSource.kt
+    |   |
+    |   ├── model
+    |   |   ├── League.kt
+    |   |   ├── Player.kt
+    |   |   ├── PlayerDetail.kt
+    |   |   ├── Team.kt
+    |   |   └── TeamDetail.kt
+    |   |
+    |   ├── repository
+    |   |   ├── FootballRepository.kt
+    |   |   ├── LeagueRepository.kt
+    |   |   ├── PlayerRepository.kt
+    |   |   └── TeamRepository.kt
+    |   |
+    |   └── usecase
+    |       ├── GetLeagueUseCase.kt
+    |       ├── GetPlayerDetailUseCase.kt
+    |       ├── GetPlayerByTeamUseCase.kt
+    |       ├── GetTeamDetailUseCase.kt
+    |       └── GetTeamByLeagueUseCase.kt
+    |
+    ├── ui
+    |   ├── componentes
+    |   |   ├── AppTopBar.kt
+    |   |   ├── EquipoItem.kt
+    |   |   ├── ExpandableSection.kt
+    |   |   ├── JugadorItem.kt
+    |   |   ├── LigaCard.kt
+    |   |   └── SearchBar.kt
+    |   |
+    |   ├── navigation
+    |   |   ├── AppNavGraph.kt
+    |   |   └── Toute.kt
+    |   |
+    |   ├── screens
+    |   |   ├── equipoLegenario
+    |   |   |   └── EquipoLegendarioScreen.kt
+    |   |   |
+    |   |   ├── home
+    |   |   |   └── HomeScreen.kt
+    |   |   |
+    |   |   ├── ligas
+    |   |   |       ├── EquipoDetailScreen.kt
+    |   |   |       ├── EquipoDetailUiState.kt
+    |   |   |       ├── EquipoDetailViewModel.kt
+    |   |   |       ├── EquipoDetailViewModelFactory.kt
+    |   |   |       ├── JugadorDetailScreen.kt
+    |   |   |       ├── JugadorDetailUiState.kt
+    |   |   |       ├── JugadorDetailViewModel.kt
+    |   |   |       ├── JugadorDetailViewModelFactory.kt
+    |   |   |       ├── LigasEquiposJugadoreScreen.kt
+    |   |   |       ├── LigasUiState.kt
+    |   |   |       ├── LigasViewModel.kt
+    |   |   |       ├── LigasViewModelFactory.kt
+    |   |   |       ├── PlayerUiState.kt
+    |   |   |       └── TeamsUiState.kt
+    |   |   |
+    |   |   └── LigasScreen.kt
+    |   |
+    |   └── theme
+    |       ├── Color
+    |       ├── Theme
+    |       └── Type
+    |
+    └── MainActivity.kt
