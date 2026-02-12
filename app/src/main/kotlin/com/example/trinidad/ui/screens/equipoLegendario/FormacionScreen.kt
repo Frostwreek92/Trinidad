@@ -505,37 +505,12 @@ fun PlayerCard(
     onDragEnd: () -> Unit = {}
 ) {
     var cardPosition by remember { mutableStateOf(Offset.Zero) }
-    
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .dragAndDropSource {
-                startTransfer(
-                    DragAndDropTransferData(
-                        ClipData.newPlainText(
-                            "player",
-                            "${player.id}|${player.name}"
-                        )
-                    )
-                )
-            }
             .onGloballyPositioned { coords ->
                 cardPosition = coords.positionInRoot()
-            }
-            .pointerInput(player) {
-                detectDragGestures(
-                    onDragStart = { offset -> 
-                        // Convertir coordenadas locales a coordenadas de pantalla
-                        val screenOffset = cardPosition + offset
-                        onPlayerDragStart(player, screenOffset)
-                    },
-                    onDragEnd = {
-                        onDragEnd()
-                    }
-                ) { change, dragAmount ->
-                    change.consume()
-                    onDrag(dragAmount)
-                }
             },
         onClick = onPlayerClick
     ) {
@@ -545,14 +520,39 @@ fun PlayerCard(
                 .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Foto del jugador (placeholder)
+
+            // 🔥 SOLO ESTE CÍRCULO ES DRAGGABLE
             Box(
                 modifier = Modifier
                     .size(40.dp)
                     .background(
                         color = MaterialTheme.colorScheme.primaryContainer,
                         shape = CircleShape
-                    ),
+                    )
+                    .dragAndDropSource {
+                        startTransfer(
+                            DragAndDropTransferData(
+                                ClipData.newPlainText(
+                                    "player",
+                                    "${player.id}|${player.name}"
+                                )
+                            )
+                        )
+                    }
+                    .pointerInput(player) {
+                        detectDragGestures(
+                            onDragStart = { offset ->
+                                val screenOffset = cardPosition + offset
+                                onPlayerDragStart(player, screenOffset)
+                            },
+                            onDragEnd = {
+                                onDragEnd()
+                            }
+                        ) { change, dragAmount ->
+                            change.consume()
+                            onDrag(dragAmount)
+                        }
+                    },
                 contentAlignment = Alignment.Center
             ) {
                 Text(
@@ -561,9 +561,9 @@ fun PlayerCard(
                     fontWeight = FontWeight.Bold
                 )
             }
-            
+
             Spacer(modifier = Modifier.width(12.dp))
-            
+
             Column(
                 modifier = Modifier.weight(1f)
             ) {
