@@ -20,7 +20,7 @@ class FormacionService(
 
     fun findById(id: Int): Formacion {
         return formacionRepository.findById(id)
-            .orElseThrow { NoSuchElementException("Formación no encontrada con id: $id") }
+            .orElseThrow { NoSuchElementException("Formación no encontrada") }
     }
 
     fun save(formacion: Formacion): Formacion {

@@ -30,7 +30,6 @@ class EquipoLegendarioRepositoryImpl @Inject constructor(
         val savedDto = equipoLegendarioApi.saveFormacionLegendaria(formacionDto)
         return FormacionMapper.mapToDomain(savedDto)!!
     }
-
     override suspend fun deleteFormacion(): Boolean {
         return try {
             equipoLegendarioApi.deleteFormacionLegendaria()

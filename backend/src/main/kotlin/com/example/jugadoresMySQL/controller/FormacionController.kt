@@ -8,7 +8,6 @@ import com.example.jugadoresMySQL.service.JugadorService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.bind.annotation.RequestBody
 
 @RestController("formacionApi")
 @RequestMapping("/api/equipo-legendario")
@@ -44,48 +43,62 @@ class FormacionController(
         val y: Float
     )
 
+    // =========================
+    // GET
+    // =========================
+
     @GetMapping
-    fun getFormacionLegendaria(): ResponseEntity<FormacionResponse> {
+    fun getFormacionLegendaria(): ResponseEntity<Any> {
         return try {
             val formacion = formacionService.getLatestFormacion()
+
             if (formacion != null) {
                 val response = FormacionResponse(
                     id = formacion.idFormacion,
                     esquema = formacion.esquema,
-                    jugadores = formacion.jugadores.map { jugadorEnPosicion ->
+                    jugadores = formacion.jugadores.map {
                         JugadorPosicionResponse(
-                            jugador = jugadorEnPosicion.jugador,
-                            posicion = jugadorEnPosicion.posicion,
-                            x = jugadorEnPosicion.posicionX,
-                            y = jugadorEnPosicion.posicionY
+                            jugador = it.jugador,
+                            posicion = it.posicion,
+                            x = it.posicionX,
+                            y = it.posicionY
                         )
                     }
                 )
                 ResponseEntity.ok(response)
             } else {
-                ResponseEntity.ok().body(null)
+                ResponseEntity.ok().build()
             }
+
         } catch (e: Exception) {
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
         }
     }
 
+    // =========================
+    // POST (crear / actualizar)
+    // =========================
+
     @PostMapping
-    fun saveFormacionLegendaria(@RequestBody request: FormacionRequest): ResponseEntity<FormacionResponse> {
+    fun saveFormacionLegendaria(
+        @RequestBody request: FormacionRequest
+    ): ResponseEntity<FormacionResponse> {
+
         return try {
-            val targetId = request.id ?: formacionService.getLatestFormacion()?.idFormacion
 
-            // Crear la formación
-            val formacion = Formacion(
-                idFormacion = targetId,
-                esquema = request.esquema
-            )
+            val formacion: Formacion = if (request.id != null) {
+                formacionService.findById(request.id)
+            } else {
+                Formacion(esquema = request.esquema)
+            }
 
-            // Crear los jugadores en posición
+            formacion.esquema = request.esquema
+
             val jugadoresEnPosicion = request.jugadores.map { jugadorReq ->
-                // Verificar que el jugador existe
-                val jugadorExistente = jugadorService.findById(jugadorReq.jugador.idJugador!!)
-                
+
+                val jugadorExistente =
+                    jugadorService.findById(jugadorReq.jugador.idJugador!!)
+
                 JugadorEnPosicion(
                     jugador = jugadorExistente,
                     formacion = formacion,
@@ -95,31 +108,36 @@ class FormacionController(
                 )
             }
 
-            formacion.jugadores = jugadoresEnPosicion
+            // 🔥 Reemplazar lista completa
+            formacion.jugadores = jugadoresEnPosicion.toMutableList()
 
-            // Guardar la formación
             val savedFormacion = formacionService.save(formacion)
 
             val response = FormacionResponse(
                 id = savedFormacion.idFormacion,
                 esquema = savedFormacion.esquema,
-                jugadores = savedFormacion.jugadores.map { jugadorEnPosicion ->
+                jugadores = savedFormacion.jugadores.map {
                     JugadorPosicionResponse(
-                        jugador = jugadorEnPosicion.jugador,
-                        posicion = jugadorEnPosicion.posicion,
-                        x = jugadorEnPosicion.posicionX,
-                        y = jugadorEnPosicion.posicionY
+                        jugador = it.jugador,
+                        posicion = it.posicion,
+                        x = it.posicionX,
+                        y = it.posicionY
                     )
                 }
             )
 
-            ResponseEntity.status(HttpStatus.CREATED).body(response)
+            ResponseEntity.ok(response)
+
         } catch (e: NoSuchElementException) {
             ResponseEntity.status(HttpStatus.NOT_FOUND).build()
         } catch (e: Exception) {
             ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
         }
     }
+
+    // =========================
+    // DELETE
+    // =========================
 
     @DeleteMapping
     fun deleteFormacionLegendaria(): ResponseEntity<Unit> {
@@ -129,18 +147,19 @@ class FormacionController(
                 formacionService.delete(formacion.idFormacion!!)
             }
             ResponseEntity.noContent().build()
-        } catch (e: NoSuchElementException) {
-            ResponseEntity.noContent().build()
         } catch (e: Exception) {
             ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
         }
     }
 
+    // =========================
+    // EXISTS
+    // =========================
+
     @GetMapping("/exists")
     fun checkExistsFormacionLegendaria(): ResponseEntity<Boolean> {
         return try {
-            val exists = formacionService.existsFormacion()
-            ResponseEntity.ok(exists)
+            ResponseEntity.ok(formacionService.existsFormacion())
         } catch (e: Exception) {
             ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false)
         }

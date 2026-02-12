@@ -119,7 +119,7 @@ class FormacionViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 _uiState.value = _uiState.value.copy(isLoading = true)
-                
+
                 val jugadoresEnPosicion = _uiState.value.positions
                     .filter { it.jugador != null }
                     .map { position ->
@@ -130,21 +130,22 @@ class FormacionViewModel @Inject constructor(
                             y = position.y
                         )
                     }
-                
+
                 val formacion = Formacion(
                     id = _uiState.value.currentFormacion?.id,
                     esquema = "4-3-3",
                     jugadores = jugadoresEnPosicion
                 )
-                
-                // Guardar únicamente en Spring Boot
-                repositoryImpl.saveFormacion(formacion)
-                
+
+                val savedFormacion = repositoryImpl.saveFormacion(formacion)
+
                 _uiState.value = _uiState.value.copy(
+                    currentFormacion = savedFormacion,
                     saveComplete = true,
                     message = "Formación guardada correctamente en servidor",
                     isLoading = false
                 )
+
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(
                     message = "Error al guardar la formación: ${e.message}",

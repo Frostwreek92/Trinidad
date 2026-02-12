@@ -96,7 +96,7 @@ fun FormacionScreen(
         ) {
             
             Text(
-                text = if (isEditing) "Modificar Formación" else "Nueva Formación",
+                text = if (isEditing) "Modificar\nFormación" else "Nueva Formación",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -207,14 +207,14 @@ fun FormacionScreen(
                                         draggedPlayer?.let { player ->
                                             // Usar directamente las coordenadas de pantalla
                                             val dropPoint = dragOffset
-                                            
+
                                             // Encontrar la posición cuyo bounds contiene el punto de drop
                                             val targetPosition = positionBounds.entries.firstOrNull { entry ->
                                                 entry.value.contains(dropPoint)
                                             }?.key?.let { positionId ->
                                                 uiState.positions.find { it.id == positionId }
                                             }
-                                            
+
                                             // Si no está dentro de ningún bounds, usar el más cercano considerando ambos ejes
                                             val finalPosition = targetPosition ?: positionCoords.entries.minByOrNull { entry ->
                                                 val distance = dropPoint.distanceTo(entry.value)
@@ -227,7 +227,7 @@ fun FormacionScreen(
                                             }?.let { entry ->
                                                 uiState.positions.find { it.id == entry.key }
                                             }
-                                            
+
                                             finalPosition?.let { position ->
                                                 viewModel.assignPlayerToPosition(player, position)
                                             }
