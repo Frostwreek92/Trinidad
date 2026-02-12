@@ -91,7 +91,6 @@ fun EquipoLegendarioScreen(
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
-
         // Botón Nuevo
         Button(
             onClick = {
