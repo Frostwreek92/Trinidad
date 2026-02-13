@@ -108,7 +108,7 @@ class FormacionController(
                 )
             }
 
-            // 🔥 Reemplazar lista completa
+            // Reemplazar lista completa
             formacion.jugadores = jugadoresEnPosicion.toMutableList()
 
             val savedFormacion = formacionService.save(formacion)
